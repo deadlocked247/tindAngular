@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <head>
 	<title>tindAngular</title>
+	<base href="/">
 	<link rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+	<link rel="stylesheet" href="assets/css/animate.css">
 </head>
 <body ng-app="app" >
 	<div ng-controller="mainController">
-		<div class="container">
-			<div class="row">
-				
-				<div class="col-xs-4 col-xs-offset-4" style="margin-top:150px">
-					<div class="page-header text-center">
-					  <h1>tindAngular</h1>
-					</div>
+
+		<div class="tinder-container">
+			<span ng-click="goRight()" class="lnr lnr-chevron-right " id="intro-right"></span>
+			<span ng-click="goLeft()" class="lnr lnr-chevron-left" id="intro-left"></span>
+					<!--
 					<p class="text-center">
 						To get the Facebook ID, simply click <a href="http://facebook.com/profile.php">here</a> and get the number after the url.
 						<br>
@@ -24,15 +26,63 @@
 						<br>
 						<code>http://www.facebook.com/connect/login_success.html<br>#access_token={<strong> Copy this part</strong> }&expires_in={expiration}</code>
 					</p>
-					<input ng-model="fbAuth" style="margin-bottom:20px;" type="text" class="form-control" placeholder="Facebook Auth"></input>
-					<button ng-click="getData()" type="button" class="btn btn-default center-block">Enter Data</button>
+					-->
+			<div class="fast animated fadeIn" ng-show="showContent[0]" ng-swipe-right="goRight()" ng-swipe-left="goLeft()"> 
+				<div class="intro-screen-title">
+					Anonymously "Like" or "Pass" on people Tinder Suggests.
 				</div>
-
+				<img src="assets/img/1.png" class="intro-screen-img">
+				<div class="intro-bullets">
+					<div class="selected">•</div> • • • • 
+				</div>
 			</div>
+			<div class="fast animated fadeIn" ng-show="showContent[1]" ng-swipe-right="goRight()" ng-swipe-left="goLeft()">
+				<div class="intro-screen-title">
+					If someone you've liked happens to like you back...
+				</div>
+				<img src="assets/img/2.png" class="intro-screen-img">
+				<div class="intro-bullets">
+					• <div class="selected">•</div> • • • 
+				</div>
+			</div>
+			<div class="fast animated fadeIn" ng-show="showContent[2]" ng-swipe-right="goRight()" ng-swipe-left="goLeft()">
+				<div class="intro-screen-title">
+					Chat with your matches inside the app.
+				</div>
+				<img src="assets/img/3.png" class="intro-screen-img">
+				<div class="intro-bullets">
+					• • <div class="selected">•</div> • • 
+				</div>
+			</div>
+			<div class="fast animated fadeIn" ng-show="showContent[3]" ng-swipe-right="goRight()" ng-swipe-left="goLeft()">
+				<div class="intro-screen-title">
+					Capture and share moments with all your mathches.
+				</div>
+				<img src="assets/img/4.png" class="intro-screen-img">
+				<div class="intro-bullets">
+					• • • <div class="selected">•</div> • 
+				</div>
+			</div>
+			<div class="fast animated fadeIn" ng-show="showContent[4]" ng-swipe-right="goRight()" ng-swipe-left="goLeft()">
+				<div class="intro-screen-title">
+					Like your matches' moments and see who liked yours.
+				</div>
+				<img src="assets/img/5.png" class="intro-screen-img">
+				<div class="intro-bullets">
+					• • • • <div class="selected">•</div>
+				</div>
+			</div>
+			<div class="intro-terms">
+				tindAngular has no association with Tinder Inc or Facebook.
+			</div>
+			<button ng-click="login()" type="button" class="btn btn-default center-block facebook-btn">Log in with Facebook</button>
+
 		</div>
 	</div>
 </body>
 
 <script src="/bower/angular/angular.min.js"></script>
+<script src="/bower/angular-facebook/lib/angular-facebook.js"></script>
+<script src="/bower/angular-route/angular-route.min.js"></script>
 <script src="/main.js"></script>
 <script src="/bower/jquery/dist/jquery.min.js"></script>

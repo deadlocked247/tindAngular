@@ -33,6 +33,8 @@ app.get('/nearby', function(req, res) {
 	
 })
 
+app.use('/swipe', express.static(__dirname + '/client/swipe.html'));
+
 app.listen(port, function() {
 	console.log("tindAngular listening on "+port);
 });

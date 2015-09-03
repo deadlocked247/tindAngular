@@ -1,0 +1,166 @@
+@font-face {
+  font-family: 'proxima-soft-normal';
+  src: url('../fonts/ProximaNovaSoft-Regular-webfont.eot');
+  src: url('../fonts/ProximaNovaSoft-Regular-webfont.eot') format('embedded-opentype'), 
+       url('../fonts/ProximaNovaSoft-Regular-webfont.woff') format('woff'),
+       url('../fonts/ProximaNovaSoft-Regular-webfont.ttf')  format('truetype');
+ }
+
+@font-face {
+  font-family: 'proxima-soft-medium';
+  src: url('../fonts/ProximaNovaSoft-Medium-webfont.eot');
+  src: url('../fonts/ProximaNovaSoft-Medium-webfont.eot') format('embedded-opentype'), 
+       url('../fonts/ProximaNovaSoft-Medium-webfont.woff') format('woff'),
+       url('../fonts/ProximaNovaSoft-Medium-webfont.ttf')  format('truetype');
+ }
+
+ @font-face {
+  font-family: 'proxima-soft-bold';
+  src: url('../fonts/ProximaNovaSoft-Bold-webfont.eot');
+  src: url('../fonts/ProximaNovaSoft-Bold-webfont.eot') format('embedded-opentype'), 
+       url('../fonts/ProximaNovaSoft-Bold-webfont.woff') format('woff'),
+       url('../fonts/ProximaNovaSoft-Bold-webfont.ttf')  format('truetype');
+ }
+
+
+@font-face {
+  font-family: 'chalet';
+  src: url('../fonts/chaletnewyorknineteenseventy-webfont.eot');
+  src: url('../fonts/chaletnewyorknineteenseventy-webfont.eot') format('embedded-opentype'), 
+       url('../fonts/chaletnewyorknineteenseventy-webfont.woff') format('woff'),
+       url('../fonts/chaletnewyorknineteenseventy-webfont.ttf')  format('truetype');
+ }
+
+* {
+	-webkit-animation-delay: 0.5s; /* Chrome, Safari, Opera */
+    animation-delay: 0.5s;
+}
+
+ .header {
+ 	font-family: 'chalet';
+ 	font-size:2em;
+ }
+
+.tinder-container {
+    width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+}
+
+
+ .intro-screen-title {
+ 	font-family: "proxima-soft-normal", sans-serif;
+ 	font-size:1.5em;
+ 	text-align: center;
+ 	color:#4d4d4d;
+ }
+
+ .intro-screen-img {
+     width: 100%;
+    height: auto;
+    padding: 36px 82px;
+ }
+
+ .intro-bullets {
+ 	text-align: center;
+ 	display: inline-block;
+ 	margin-left: auto;
+ 	margin-right: auto;
+ 	    width: 100%;
+ 	color:#cdcdcd;
+ 	font-size:1.5em;
+ }
+
+ .intro-bullets>.selected {
+ 	color:#4d4d4d;
+ 	display: inline;
+ }
+
+ #intro-right {
+ 	position: relative;
+    float: right;
+    top: 270px;
+	font-size: 2em;
+    height: 30px;
+    width: 30px;
+    color:#cdcdcd;
+    z-index:5;
+ }
+
+ #intro-right:hover{
+ 	color:#4d4d4d;
+ 	cursor: pointer;
+ }
+
+.fast {
+	-webkit-animation-delay: 0.25s !important; /* Chrome, Safari, Opera */
+    animation-delay: 0.25s !important;
+}
+
+#intro-left:hover {
+	color:#4d4d4d;
+	cursor: pointer;
+}
+
+
+.facebook-btn, .facebook-btn:active, .facebook-btn:focus, .facebook-btn:active:focus {
+	font-family: 'proxima-soft-medium', sans-serif;
+	background-color: #3b5998;
+	border:0px;
+	outline:none;
+	color:white !important;
+	padding:10px 30px;
+	margin-top:10px;
+}
+.facebook-btn:hover {
+	background-color: #5B78B5;
+}
+.intro-terms {
+	color:#a4a4a4;
+	font-size:0.75em;
+	font-family: 'proxima-soft-normal', sans-serif;
+	text-align: center;
+}
+.tinder-swipe-container {
+	width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    border-radius:10px;
+    border:1px solid #f2f2f2;
+}
+.middle-swipe {
+	padding:20px;
+}
+.swipe-title {
+    font-family: 'chalet', sans-serif;
+    font-size: 2em;
+    display: inline-block;
+    text-align: center;
+    color: #ff6748;
+    position: relative;
+    left: 57px;
+    bottom:-4px;
+}
+#tinder-settings {
+	font-size:2em;
+    position: relative;
+    top: 4px;
+    left: 8px;
+	color:#cecece;
+}
+.top-bar {
+	border-bottom:1px solid #f2f2f2;
+	padding: 10px;
+}
+ #intro-left {
+ 	position: relative;
+    float: left;
+    z-index:5;
+    color:#cdcdcd;
+    font-size: 2em;
+    top: 270px;
+    height: 30px;
+    width: 30px;
+ }
