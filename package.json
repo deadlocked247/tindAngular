@@ -1,0 +1,14 @@
+{
+  "name": "tindAngular",
+  "version": "0.0.1",
+  "devDependencies": {
+    "bower": "^1.5.1",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "mongoose": "^4.1.3",
+    "tinder_pro":""
+  }
+}

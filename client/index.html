@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+	<title>tindAngular</title>
+	<link rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.css">
+</head>
+<body ng-app="app" >
+	<div ng-controller="mainController">
+		<div class="container">
+			<div class="row">
+				
+				<div class="col-xs-4 col-xs-offset-4" style="margin-top:150px">
+					<div class="page-header text-center">
+					  <h1>tindAngular</h1>
+					</div>
+					<p class="text-center">
+						To get the Facebook ID, simply click <a href="http://facebook.com/profile.php">here</a> and get the number after the url.
+						<br>
+						<code>http://facebook.com/{<strong> Copy this part</strong> }</code>
+					</p>
+
+					<input ng-model="fbID" style="margin-bottom:20px;" type="text" class="form-control" placeholder="Facebook ID"></input>
+					<p class="text-center">
+						To get the Facebook Auth, simply click <a href="https://www.facebook.com/dialog/oauth?client_id=464891386855067&redirect_uri=https://www.facebook.com/connect/login_success.html&scope=basic_info,email,public_profile,user_about_me,user_activities,user_birthday,user_education_history,user_friends,user_interests,user_likes,user_location,user_photos,user_relationship_details&response_type=token">here </a>and get the number after the url.
+						<br>
+						<code>http://www.facebook.com/connect/login_success.html<br>#access_token={<strong> Copy this part</strong> }&expires_in={expiration}</code>
+					</p>
+					<input ng-model="fbAuth" style="margin-bottom:20px;" type="text" class="form-control" placeholder="Facebook Auth"></input>
+					<button ng-click="getData()" type="button" class="btn btn-default center-block">Enter Data</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="/bower/angular/angular.min.js"></script>
+<script src="/main.js"></script>
+<script src="/bower/jquery/dist/jquery.min.js"></script>

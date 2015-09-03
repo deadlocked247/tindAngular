@@ -1,0 +1,10 @@
+{
+  "name": "tindAngular",
+  "description": "Tinder and Angular project",
+  "version": "1.0.0",
+  "dependencies": {
+    "angular": "~1.4.5",
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4"
+  }
+}
