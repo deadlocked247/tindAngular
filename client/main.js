@@ -21,7 +21,7 @@
 			}
 		}
 	})
-	.controller('mainController', function($scope, tinderServices, Facebook) {
+	.controller('mainController', function($scope, tinderServices, Facebook, $http) {
 
 		
 		$scope.showContent = [true, false, false, false, false];
@@ -61,9 +61,13 @@
 		}
 
 		$scope.login = function() {
+			$scope.fbOverlay = true;
+			
+			/*
 			Facebook.login(function (res) {
 				console.log(res);
 			});
+			*/
 		};
 		
 		

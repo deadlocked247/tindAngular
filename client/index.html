@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-	<title>tindAngular</title>
+	<title>Tinder</title>
 	<base href="/">
 	<link rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" href="assets/css/style.css">
@@ -8,8 +8,18 @@
 	<link rel="stylesheet" href="assets/css/animate.css">
 </head>
 <body ng-app="app" >
-	<div ng-controller="mainController">
 
+	<div ng-init="fbOverlay = false" ng-controller="mainController">
+		<div ng-show="fbOverlay" class="overlay">
+			<div class="overlay-block">
+				<h6 style="text-align:center;">
+				Right now our app can't access Tinder Facebook auth tokens.
+				</h6>
+				<h3>
+				We need your help
+				</h3>
+			</div>
+		</div>
 		<div class="tinder-container">
 			<span ng-click="goRight()" class="lnr lnr-chevron-right " id="intro-right"></span>
 			<span ng-click="goLeft()" class="lnr lnr-chevron-left" id="intro-left"></span>
@@ -59,10 +69,9 @@
 				</div>
 			</div>
 			<div class="intro-terms">
-				tindAngular has no association with Tinder Inc or Facebook.
+				tindAngular has no association with Tinder Inc or Facebook and is not responsible for what happens when you use this app.
 			</div>
 			<button ng-click="login()" type="button" class="btn btn-default center-block facebook-btn">Log in with Facebook</button>
-
 		</div>
 	</div>
 </body>
