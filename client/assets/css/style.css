@@ -32,8 +32,13 @@
  }
 
 * {
-	-webkit-animation-delay: 0.5s; /* Chrome, Safari, Opera */
-    animation-delay: 0.5s;
+	transition: all 0.25s ease;
+	-o-transition: all 0.25s ease;
+	-ms-transition: all 0.25s ease;
+	-moz-transition: all 0.25s ease;
+	-webkit-transition: all 0.25s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
  .header {
@@ -130,6 +135,9 @@
     border-radius:10px;
     border:1px solid #f2f2f2;
 }
+.card {
+
+}
 .middle-swipe {
 	padding:20px;
 }
@@ -140,15 +148,27 @@
     text-align: center;
     color: #ff6748;
     position: relative;
-    left: 57px;
-    bottom:-4px;
+    left: 63px;
+    bottom:-1px;
 }
 #tinder-settings {
-	font-size:2em;
+	font-size:1.75em;
     position: relative;
-    top: 4px;
+    top: 2px;
     left: 8px;
 	color:#cecece;
+}
+#tinder-settings:hover, #tinder-chat:hover {
+	color:#4d4d4d;
+	cursor: pointer;
+}
+#tinder-chat {
+	font-size:1.75em;
+    position: relative;
+    top: 8px;
+    right: 5px;
+	color:#cecece;
+	float: right;
 }
 .top-bar {
 	border-bottom:1px solid #f2f2f2;
@@ -163,4 +183,38 @@
     top: 270px;
     height: 30px;
     width: 30px;
+ }
+
+
+ .card-stack {
+  list-style: none;
+ }
+
+ .card {
+    position: absolute;
+    border:1px solid #e8edf1;
+    height: 318px;
+    background-color: white;
+    color: white;
+    display: block;
+    text-align: center;
+    width: 318px;
+    margin-left: -45px;
+    border-radius: 5px;
+ }
+
+ .card-img {
+      background-size: cover;
+    width: 316px;
+    overflow: hidden;
+    border-radius: 5px 5px 0px 0px;
+    height: 260px;
+ }
+
+ .card-name {
+      font-size: 1.5em;
+    color: #6f6f6f;
+    font-family: 'proxima-soft-normal', sans-serif;
+    text-align: left;
+    padding: 15px 25px;
  }

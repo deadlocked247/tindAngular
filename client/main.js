@@ -1,39 +1,31 @@
 (function () {
 	'use strict'; 
-	angular.module('app',['facebook', 'ngRoute'])
-	.config(['$httpProvider','FacebookProvider', '$locationProvider', function($httpProvider, FacebookProvider, $locationProvider) {
-        $httpProvider.defaults.useXDomain = true;
-        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+	angular.module('app',['ngRoute', 'facebook', 'gajus.swing'])
+	.config(['$locationProvider', 'FacebookProvider', function($locationProvider, FacebookProvider) {
+        $locationProvider.html5Mode(true);
         FacebookProvider.init('1690654501163960');
-        $locationProvider.html5Mode(true)
     }])
 	.service('tinderServices', function($q, $http, $location) {
 		return {
-			authUser : function(auth){
+			auth : function(id, token){
 				return $http({
 					method:"GET",
-					url:'http://localhost:8000/auth/' + auth.fb_id + '/' + auth.fb_auth_token,
-					data: auth
+					url:'/auth/' + id + '/' + token
 				})
 			},
-			getNearby : function(){
+			getNearby : function(token){
 				return $http({
 					method:"GET",
-					url:'http://localhost:8000/nearby'
+					url:'/nearby/' + token
 				})
-			},
+			}
 		}
 	})
-	.controller('mainController', function($scope, $location, tinderServices, Facebook) {
-		$scope.test = 'hello';
+	.controller('mainController', function($scope, tinderServices, Facebook) {
 
+		
 		$scope.showContent = [true, false, false, false, false];
 
-		Facebook.getLoginStatus(function (response) {
-			if(response.status==='connected') {
-				window.location.assign("/swipe")
-			};
-		});
 
 		
 		$scope.goRight = function() {
@@ -68,34 +60,59 @@
 			$scope.showContent[index] = true;
 		}
 
-		$scope.getData = function () {
-			
-			var data =
-			{
-				fb_id: $scope.fbID,
-				fb_auth_token: $scope.fbAuth
-			}; /*
-			var data =
-			{
-				fb_id: 'burak.aslan.7773631',
-				fb_auth_token: 'CAAGm0PX4ZCpsBADOkseCV6Eox9xXhHuJZAp5kox8uaY9mJ6DViPTZCD7ZAvmw8ZBMMBVJ1LkuTHEVG8e7adfZBSYMuCNgQOtjQLitGw4iOS4bcWkwr4Leu92PKxAFrWDhvRztWZCAwFmlwDadGyBgxDKhH0vggHhLupLFsFRpMYzZAaznZA7ytZAoePBYt4ELV6xB5rwfA4lDuCAZDZD'
-			}; */
-			tinderServices.authUser(data)
-			.then(function (payload) {
-				console.log(payload);
-			})
-			.catch(function (payload) {
-				console.log(payload);
-			});
-		}
 		$scope.login = function() {
-				Facebook.login(function(response) {
+			Facebook.login(function (res) {
+				console.log(res);
 			});
 		};
-	})
-	.controller('swipeController', function($scope) {
+		
 		
 	})
+	.controller('swipeController', function($scope, tinderServices, Facebook) {
+
+		Facebook.getLoginStatus(function (response) {
+			console.log(response);
+			response.authResponse.userID="100010063783484";
+			response.authResponse.accessToken="CAAGm0PX4ZCpsBAHnTmDL4fKNxMUSLHD13ZBhZC1natwWZCntPk4lgzC6KGHkGvPx3CZAmS6RZBsvdjjuGthg6uMkgjiZBZCnGsdWxvtuBTLTIIr3qq39PyC9aVzet6x5TAXybQcOY2xaIvfBQG20RgJVZBB24rdGzVBg55dI3H2cBcS4ijrty3JVhcxXIMblGGM3dajNTwlIe9wZDZD";
+			
+			tinderServices.auth(response.authResponse.userID, response.authResponse.accessToken)
+			.then(function (payload) {
+				$scope.token = payload.data.token;
+				console.log(payload);
+				tinderServices.getNearby($scope.token)
+				.then(function (payload) {
+					console.log(payload);
+					$scope.nearby = payload.data.results;
+				})
+			})
+		});
+		function calculate_age(birth_month,birth_day,birth_year)
+		{
+		    var today_date = new Date();
+		    var today_year = today_date.getFullYear();
+		    var today_month = today_date.getMonth();
+		    var today_day = today_date.getDate();
+		    var age = today_year - birth_year;
+
+		    if ( today_month < (birth_month - 1))
+		    {
+		        age--;
+		    }
+		    if (((birth_month - 1) == today_month) && (today_day < birth_day))
+		    {
+		        age--;
+		    }
+		    return age;
+		};
+		$scope.calculateAge = function calculateAge(birthday) { // birthday is a date
+		    var arr = birthday.split("-");
+		    var year = arr[0];
+		    var month = arr[1];
+		    var arr2 = arr[2].split("T");
+		    var day = arr2[0];
+		    return calculate_age(month,day,year);
+		};
+	}) 
 	.config(['$routeProvider', function($routeProvider) {
 		$routeProvider
         .when('/', {

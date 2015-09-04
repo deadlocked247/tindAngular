@@ -2,9 +2,7 @@ var express 		= require('express'),
     app     		= express();
 
 var port    = 8000;
-
-var TinderPro = require('tinder_pro');
-var tinder = new TinderPro();
+var request = require('request');
 
 app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/client/index.html');
@@ -14,24 +12,45 @@ app.use('/bower', express.static(__dirname + '/bower_components'));
 app.use('/', express.static(__dirname + '/client'));
 
 app.get('/auth/:id/:auth', function(req, res) {
-	tinder.sign_in(req.params.id, req.params.auth, function(err, res, body){
-		var returnObj = {};
-		tinder.get_nearby_users(function(err, res, body) {
-			returnObj.nearby = body;
-			console.log(body);
-			tinder.fetch_updates(function(err, res, body) {
-				returnObj.updates = body;
-				console.log(returnObj);
-			});
-		});
-		
-		
+	var obj = {"facebook_token": req.params.auth.toString(), "facebook_id": req.params.id.toString()};
+    request({
+    url: 'https://api.gotinder.com/auth',
+    method: 'POST', 
+    json: true,
+    body: obj,
+    headers: { 
+        'Content-Type': 'application/json',
+        'User-agent': 'Tinder/4.5.0 (iPhone; iOS 8.1; Scale/2.00)'
+    }
+	}, function(error, response, body){
+	    if(error) {
+	        console.log(error);
+	    } else {
+	        res.send(body);
+	    }
 	});
-})
+});
 
-app.get('/nearby', function(req, res) {
-	
-})
+
+app.get('/nearby/:token', function(req, res) {
+    request({
+    url: 'https://api.gotinder.com/user/recs',
+    method: 'GET', 
+    headers: { 
+        'Content-Type': 'application/json',
+        'User-agent': 'Tinder/4.5.0 (iPhone; iOS 8.1; Scale/2.00)',
+        'X-Auth-Token': req.params.token.toString()
+    }
+	}, function(error, response, body){
+	    if(error) {
+	        console.log(error);
+	    } else {
+	    	console.log(body);
+	        res.send(body);
+	    }
+	});
+});
+
 
 app.use('/swipe', express.static(__dirname + '/client/swipe.html'));
 

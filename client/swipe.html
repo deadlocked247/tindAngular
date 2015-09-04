@@ -14,10 +14,18 @@
 				<div class="swipe-title">
 					tindAngular
 				</div>
+				<span class="lnr lnr-bubble" id="tinder-chat"></span>
 			</div>
 			<div class="middle-swipe">
-				<div class="card">
-				</div>
+				<ul class="card-stack" swing-stack>
+				    <li class="card" ng-repeat="person in nearby" swing-card>
+				    	<div style="background-image:url('{{person.photos[0].url}}')" class="card-img">
+				    	</div>
+				    	<div class="card-name">
+				    		{{person.name}}, {{calculateAge(person.birth_date)}}
+				    	</div>
+				    </li>
+				</ul>
 			</div>
 		</div>
 	</div>
@@ -26,6 +34,7 @@
 
 <script src="/bower/angular/angular.min.js"></script>
 <script src="/bower/angular-facebook/lib/angular-facebook.js"></script>
+<script src="/bower/angular-swing/dist/angular-swing.min.js"></script>
 <script src="/bower/angular-route/angular-route.min.js"></script>
 <script src="/main.js"></script>
 <script src="/bower/jquery/dist/jquery.min.js"></script>

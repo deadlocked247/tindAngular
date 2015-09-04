@@ -4,8 +4,10 @@
   "version": "1.0.0",
   "dependencies": {
     "angular": "~1.4.5",
+    "angular-facebook": "~0.2.3",
+    "angular-route": "",
+    "angular-swing": "*",
     "bootstrap": "~3.3.5",
-    "jquery": "~2.1.4",
-    "angular-route":""
+    "jquery": "~2.1.4"
   }
 }
