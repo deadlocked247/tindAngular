@@ -12,11 +12,15 @@
 			<div class="top-bar">
 				<span class="lnr lnr-cog" id="tinder-settings"></span>
 				<div class="swipe-title">
-					tindAngular
+					tinder
 				</div>
 				<span class="lnr lnr-bubble" id="tinder-chat"></span>
 			</div>
 			<div class="middle-swipe">
+
+				<div style="background-image:url('{{user.photos[0].url}}')" class="profile-circle">
+				</div>
+				<!--
 				<ul class="card-stack" swing-stack>
 				    <li class="card" ng-repeat="person in nearby" swing-card>
 				    	<div style="background-image:url('{{person.photos[0].url}}')" class="card-img">
@@ -24,8 +28,15 @@
 				    	<div class="card-name">
 				    		{{person.name}}, {{calculateAge(person.birth_date)}}
 				    	</div>
+				    	<div class="card-info">
+					    	<span class="lnr lnr-users" ></span>
+					    	{{person.common_friend_count}}
+					    	<span class="lnr lnr-book"></span>
+					    	{{person.common_like_count}}
+					    </div>
 				    </li>
 				</ul>
+			-->
 			</div>
 		</div>
 	</div>
@@ -36,5 +47,6 @@
 <script src="/bower/angular-facebook/lib/angular-facebook.js"></script>
 <script src="/bower/angular-swing/dist/angular-swing.min.js"></script>
 <script src="/bower/angular-route/angular-route.min.js"></script>
+<script src="/bower/angular-cookies/angular-cookies.min.js"></script>
 <script src="/main.js"></script>
 <script src="/bower/jquery/dist/jquery.min.js"></script>

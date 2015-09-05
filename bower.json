@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "dependencies": {
     "angular": "~1.4.5",
+    "angular-cookies": "~1.4.5",
     "angular-facebook": "~0.2.3",
     "angular-route": "",
     "angular-swing": "*",

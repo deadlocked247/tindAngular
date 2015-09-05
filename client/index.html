@@ -12,12 +12,27 @@
 	<div ng-init="fbOverlay = false" ng-controller="mainController">
 		<div ng-show="fbOverlay" class="overlay">
 			<div class="overlay-block">
-				<h6 style="text-align:center;">
-				Right now our app can't access Tinder Facebook auth tokens.
+				<h6 style="text-align:center;margin-bottom:20px">
+				Right now our app can't access Tinder Facebook auth tokens becuase the Facebook app prevents the redirect url from being anything different.
 				</h6>
-				<h3>
-				We need your help
-				</h3>
+				<h4 style="text-align:center;margin-bottom:20px">
+					Go to the following link then copy the url and paste it in the box below so we can get your token and expiration.
+				</h4>
+				<a target="_blank" href="https://www.facebook.com/dialog/oauth?client_id=464891386855067&redirect_uri=https://www.facebook.com/connect/login_success.html&scope=basic_info,email,public_profile,user_about_me,user_activities,user_birthday,user_education_history,user_friends,user_interests,user_likes,user_location,user_photos,user_relationship_details&response_type=token">
+				<div class="code">https://www.facebook.com/connect/login_success.html#access_token={<strong>ACCESS TOKEN HERE</strong>}&expires_in={<strong>TOKEN EXPIRATION</strong>}
+				</div>
+				</a>
+				<div ng-show="loginError.length > 0" class="login-error">
+					Error - {{loginError}}
+				</div>
+				<input placeholder="Paste the URL here" class="fb-input" ng-model="fbUrl"></input>
+				
+				<div ng-click="login()" style="width:100px;margin-top:15px;" class="btn btn-default center-block facebook-btn">
+					Login
+				</div>
+				<h6 style="text-align:center;margin-bottom:0px">
+					Don't worry, we don't collect any of this data.
+				</h6>
 			</div>
 		</div>
 		<div class="tinder-container">
@@ -71,7 +86,7 @@
 			<div class="intro-terms">
 				tindAngular has no association with Tinder Inc or Facebook and is not responsible for what happens when you use this app.
 			</div>
-			<button ng-click="login()" type="button" class="btn btn-default center-block facebook-btn">Log in with Facebook</button>
+			<button ng-click="fbOverlay = true" type="button" class="btn btn-default center-block facebook-btn">Log in with Facebook</button>
 		</div>
 	</div>
 </body>
@@ -79,5 +94,6 @@
 <script src="/bower/angular-facebook/lib/angular-facebook.js"></script>
 <script src="/bower/angular-swing/dist/angular-swing.min.js"></script>
 <script src="/bower/angular-route/angular-route.min.js"></script>
+<script src="/bower/angular-cookies/angular-cookies.min.js"></script>
 <script src="/main.js"></script>
 <script src="/bower/jquery/dist/jquery.min.js"></script>

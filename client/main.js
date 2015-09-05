@@ -1,6 +1,6 @@
 (function () {
 	'use strict'; 
-	angular.module('app',['ngRoute', 'facebook', 'gajus.swing'])
+	angular.module('app',['ngRoute', 'facebook', 'gajus.swing', 'ngCookies'])
 	.config(['$locationProvider', 'FacebookProvider', function($locationProvider, FacebookProvider) {
         $locationProvider.html5Mode(true);
         FacebookProvider.init('1690654501163960');
@@ -18,14 +18,26 @@
 					method:"GET",
 					url:'/nearby/' + token
 				})
+			},
+			login : function() {
+				return $http({
+					method:"GET",
+					url:'/login'
+				})
+			},
+			profile : function(token) {
+				return $http({
+					method:"GET",
+					url:'/profile/' + token
+				})
 			}
 		}
 	})
-	.controller('mainController', function($scope, tinderServices, Facebook, $http) {
+	.controller('mainController', function($scope, $rootScope, tinderServices, Facebook, $http, $cookies) {
 
 		
 		$scope.showContent = [true, false, false, false, false];
-
+		$scope.loginError = "";
 
 		
 		$scope.goRight = function() {
@@ -61,35 +73,77 @@
 		}
 
 		$scope.login = function() {
-			$scope.fbOverlay = true;
-			
-			/*
-			Facebook.login(function (res) {
-				console.log(res);
-			});
-			*/
+			var url = $scope.fbUrl;
+			$scope.loginError = "" ;
+			if($scope.fbUrl) {
+				var arr = url.split("=");
+
+				if(arr[1]) {
+					var subArr = arr[1].split("&");
+					if(subArr) {
+
+						var accessToken = subArr[0];
+						var expiration = arr[2];
+						if(accessToken && expiration) {
+							Facebook.login(function (response) {
+								$cookies.put('tindAngularToken', accessToken, {'expires': expiration});
+								$cookies.put('tindAngularID', response.authResponse.userID, {'expires': expiration});
+
+								$scope.loginError = "";
+								window.location.assign("/swipe");
+
+							})
+							
+						}
+						else {
+							$scope.loginError = "We couldn't parse that text, try again please" ;
+						}
+					}
+					else {
+						$scope.loginError = "We couldn't parse the expiration token, try again please" ;
+					}
+				}
+				else {
+					$scope.loginError = "We couldn't parse the token, try again please" ;
+				}
+				
+			}
+			else {
+				$scope.loginError = "Please enter the URL" ;
+			}
+
 		};
 		
 		
 	})
-	.controller('swipeController', function($scope, tinderServices, Facebook) {
-
-		Facebook.getLoginStatus(function (response) {
-			console.log(response);
-			response.authResponse.userID="100010063783484";
-			response.authResponse.accessToken="CAAGm0PX4ZCpsBAHnTmDL4fKNxMUSLHD13ZBhZC1natwWZCntPk4lgzC6KGHkGvPx3CZAmS6RZBsvdjjuGthg6uMkgjiZBZCnGsdWxvtuBTLTIIr3qq39PyC9aVzet6x5TAXybQcOY2xaIvfBQG20RgJVZBB24rdGzVBg55dI3H2cBcS4ijrty3JVhcxXIMblGGM3dajNTwlIe9wZDZD";
-			
-			tinderServices.auth(response.authResponse.userID, response.authResponse.accessToken)
-			.then(function (payload) {
-				$scope.token = payload.data.token;
-				console.log(payload);
-				tinderServices.getNearby($scope.token)
+	.controller('swipeController', function($scope, $cookies, tinderServices, Facebook) {
+		
+		$scope.refresh = function() {
+			var token = $cookies.get('tindAngularToken');
+			var id = $cookies.get('tindAngularID');
+			if(token && id) {
+				tinderServices.auth(id, token)
 				.then(function (payload) {
-					console.log(payload);
-					$scope.nearby = payload.data.results;
+					$scope.token = payload.data.token;
+					tinderServices.getNearby(payload.data.token)
+					.then(function (payload) {
+						$scope.nearby = payload.data.results;
+					});
+					tinderServices.profile(payload.data.token)
+					.then(function (payload) {
+						console.log(payload.data);
+						$scope.user = payload.data;
+					})
 				})
-			})
-		});
+			}
+			else {
+				window.location.assign("/");
+			}
+		}
+
+		$scope.refresh();
+	
+
 		function calculate_age(birth_month,birth_day,birth_year)
 		{
 		    var today_date = new Date();
