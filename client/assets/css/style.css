@@ -443,6 +443,37 @@ a, a:hover, a:active, a:focus, a:visited, a:focus:active {
   display: block;
 }
 
+@media only screen and (min-device-width : 0px) and (max-device-width : 736px) {
+  .tinder-container {
+    width: auto;
+    margin: 60px 120px;
+  }
+  .intro-screen-title {
+    font-size:3em;
+  }
+  .intro-bullets {
+    font-size:6em;
+  }
+  .intro-terms {
+    font-size:2em;
+  }
+  .facebook-btn {
+    margin: 30px 0px;
+    width: 100%;
+    font-size: 3em;
+    border-radius: 10px;
+  }
+  #intro-right {
+    top: 700px;
+    font-size:10em;
+  }
+  #intro-left {
+    left: -85px;
+    top: 700px;
+    font-size:10em;
+  }
+}
+
 .swipe-left {
   transform: translate(-300px, 0px) rotate(-10deg);
 }

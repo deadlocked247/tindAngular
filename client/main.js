@@ -85,13 +85,18 @@
 		}
 
 		$scope.loginCheck = function() {
-			var token = $cookies.get('tindAngularToken');
-			var id = $cookies.get('tindAngularID');
-			if(token && id) {
-				window.location.assign("/swipe");
+			if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
+				window.location.replace("https://itunes.apple.com/us/app/tinder/id547702041");
 			}
 			else {
-				$scope.fbOverlay = true;
+				var token = $cookies.get('tindAngularToken');
+				var id = $cookies.get('tindAngularID');
+				if(token && id) {
+					window.location.assign("/swipe");
+				}
+				else {
+					$scope.fbOverlay = true;
+				}
 			}
 		}
 		$scope.login = function() {
