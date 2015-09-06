@@ -238,6 +238,7 @@
 
  .overlay {
   width:100%;
+  display: none;
   height:100%;
      position: absolute;
     top: 0px;
@@ -438,10 +439,14 @@ a, a:hover, a:active, a:focus, a:visited, a:focus:active {
   border: 10px #e8e8e8 solid;
 }
 
+.show-fb {
+  display: block;
+}
+
 .swipe-left {
-  transform: translate(-200px, 0px) rotate(-5deg);
+  transform: translate(-300px, 0px) rotate(-10deg);
 }
 
 .swipe-right {
-  transform: translate(200px, 0px) rotate(5deg);
+  transform: translate(300px, 0px) rotate(10deg);
 }

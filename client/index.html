@@ -10,7 +10,7 @@
 <body ng-app="app" >
 
 	<div ng-init="fbOverlay = false" ng-controller="mainController">
-		<div ng-show="fbOverlay" class="overlay">
+		<div ng-class="{'show-fb':fbOverlay}" class="overlay">
 			<div class="overlay-block">
 				<h6 style="text-align:center;margin-bottom:20px">
 				Right now our app can't access Tinder Facebook auth tokens becuase the Facebook app prevents the redirect url from being anything different.
