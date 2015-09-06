@@ -129,12 +129,12 @@
 }
 .tinder-swipe-container {
 	width: 350px;
-    margin-left: auto;
-    margin-right: auto;
-    height:460px;
-    margin-top: 50px;
-    border-radius:10px;
-    border:1px solid #f2f2f2;
+  margin-left: auto;
+  margin-right: auto;
+  height:530px;
+  margin-top: 50px;
+  border-radius:10px;
+  border:1px solid #f2f2f2;
 }
 .card {
 
@@ -388,4 +388,60 @@ a, a:hover, a:active, a:focus, a:visited, a:focus:active {
   border-radius: 5px;
 }
 
+.swipe-container {
+    position: relative;
+    bottom: -340px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 268px;
+}
+.swipe-left-img {
+  margin:-6px;
+  height: 90px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 50px;
+  border: 10px #e8e8e8 solid;
+}
 
+.swipe-left-img:active {
+    height: 70px;
+    background-color: white;
+    border-radius: 70px;
+    border: 20px #e8e8e8 solid;
+
+}
+
+.swipe-right-img {
+  margin:-6px;
+  height: 90px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 50px;
+  border: 10px #e8e8e8 solid;
+}
+
+.swipe-back-img {
+  margin:-6px;
+  height: 60px;
+  vertical-align: top;
+  background-color: white;
+  border-radius: 50px;
+  border: 10px #e8e8e8 solid;
+}
+.swipe-location-img {
+  margin:-6px;
+  height: 60px;
+  vertical-align: top;
+  background-color: white;
+  border-radius: 50px;
+  border: 10px #e8e8e8 solid;
+}
+
+.swipe-left {
+  transform: translate(-200px, 0px) rotate(-5deg);
+}
+
+.swipe-right {
+  transform: translate(200px, 0px) rotate(5deg);
+}

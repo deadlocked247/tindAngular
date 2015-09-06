@@ -139,10 +139,27 @@
 		
 		
 	})
-	.controller('swipeController', function($scope, $cookies, tinderServices, Facebook) {
+	.controller('swipeController', function($scope, $cookies, $timeout, tinderServices, Facebook) {
 		$('.profile-circle').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
 			$('.profile-circle').removeClass('animated bounceIn').addClass('circle-animate');
 		});
+
+		$scope.swipeLeftClick = function () {
+			var id = $scope.nearby[$scope.nearby.length - 1]._id;
+			console.log($scope.nearby[$scope.nearby.length - 1])
+			$scope.nearby[$scope.nearby.length - 1].leftSwipe = true;
+			$('.nope').css({'opacity': 1});
+			$scope.swipeLeft(id, ($scope.nearby.length-1));	
+		}
+
+
+		$scope.swipeRightClick = function () {
+			var id = $scope.nearby[$scope.nearby.length - 1]._id;
+			console.log($scope.nearby[$scope.nearby.length - 1])
+			$scope.nearby[$scope.nearby.length - 1].rightSwipe = true;
+			$('.like').css({'opacity': 1});
+			$scope.swipeRight(id, ($scope.nearby.length-1));	
+		}
 
 
 		$scope.dragmove = function (eventName, eventObject) {
@@ -161,9 +178,14 @@
         }
 
 		$scope.swipeLeft = function(id, index) {
+			$timeout(function() {
+				$scope.nearby.splice(index, 1);
+				$scope.resetCard();
+			}, 500);
+			
+
 			tinderServices.swipeLeft($scope.token, id)
 			.then(function (payload) {
-				$scope.nearby.splice(index, 1);
 			})
 			.catch(function (payload) {
 				console.log(payload)
@@ -171,9 +193,13 @@
 		}
 
 		$scope.swipeRight = function(id, index) {
+			$timeout(function() {
+				$scope.nearby.splice(index, 1);
+				$scope.resetCard();
+			}, 500);
+			
 			tinderServices.swipeRight($scope.token, id)
 			.then(function (payload) {
-				$scope.nearby.splice(index, 1);
 			})
 			.catch(function (payload) {
 				console.log(payload)

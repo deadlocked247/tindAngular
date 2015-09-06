@@ -3920,7 +3920,7 @@ Card.appendToParent = function (element) {
  * @return {Number}
  */
 Card.throwOutConfidence = function (offset, elementWidth) {
-    var elementWidth = 200;
+    var elementWidth = 130;
     return Math.min(Math.abs(offset) / elementWidth, 1);
 };
 
@@ -4068,7 +4068,7 @@ angular
                 var stack;
 
                 stack = Swing.Stack();
-
+                
                 this.add = function (cardElement) {
                     return stack.createCard(cardElement);
                 };
@@ -4091,7 +4091,7 @@ angular
             link: function (scope, element, attrs, swingStack) {
                 var card = swingStack.add(element[0]),
                     events = ['throwout', 'throwoutleft', 'throwoutright', 'throwin', 'dragstart', 'dragmove', 'dragend'];
-
+                    
                 // Map all Swing events to the scope expression.
                 // Map eventObject variable name to the expression wrapper fn.
                 // @see https://docs.angularjs.org/api/ng/service/$compile#comprehensive-directive-api
