@@ -117,6 +117,6 @@ app.get('/swipeLeft/:token/:id', function(req, res) {
 
 app.use('/swipe', express.static(__dirname + '/client/swipe.html'));
 
-app.listen(port, function() {
-	console.log("tindAngular listening on "+port);
+app.listen((process.env.PORT || port), function() {
+	console.log("tindAngular listening on " + port);
 });
