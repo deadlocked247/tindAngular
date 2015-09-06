@@ -50,7 +50,7 @@ app.get('/nearby/:token', function(req, res) {
 	    if(error) {
 	        console.log(error);
 	    } else {
-	    	console.log(body);
+
 	        res.send(body);
 	    }
 	});
@@ -69,11 +69,51 @@ app.get('/profile/:token', function(req, res) {
 	    if(error) {
 	        console.log(error);
 	    } else {
-	    	console.log(body);
+
 	        res.send(body);
 	    }
 	});
 })
+
+app.get('/swipeRight/:token/:id', function(req, res) {
+	request({
+		url:'https://api.gotinder.com/like/' + req.params.id,
+		method:'GET',
+		headers: { 
+        'Content-Type': 'application/json',
+        'User-agent': 'Tinder/4.5.0 (iPhone; iOS 8.1; Scale/2.00)',
+        'X-Auth-Token': req.params.token.toString()
+    }
+	}, function(error, response, body){
+	    if(error) {
+	        console.log(error);
+	    } else {
+
+	        res.send(body);
+	    }
+	});
+})
+
+app.get('/swipeLeft/:token/:id', function(req, res) {
+	request({
+		url:'https://api.gotinder.com/pass/' + req.params.id,
+		method:'GET',
+		headers: { 
+        'Content-Type': 'application/json',
+        'User-agent': 'Tinder/4.5.0 (iPhone; iOS 8.1; Scale/2.00)',
+        'X-Auth-Token': req.params.token.toString()
+    }
+	}, function(error, response, body){
+	    if(error) {
+	        console.log(error);
+	    } else {
+
+	        res.send(body);
+	    }
+	});
+})
+
+
 
 app.use('/swipe', express.static(__dirname + '/client/swipe.html'));
 

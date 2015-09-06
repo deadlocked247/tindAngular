@@ -30,10 +30,22 @@
 					method:"GET",
 					url:'/profile/' + token
 				})
+			},
+			swipeLeft : function(token, id) {
+				return $http({
+					method:"GET",
+					url:'/swipeLeft/'+ token + '/' + id
+				})
+			},
+			swipeRight : function(token, id) {
+				return $http({
+					method:"GET",
+					url:'/swipeRight/'+ token + '/' + id
+				})
 			}
 		}
 	})
-	.controller('mainController', function($scope, $rootScope, tinderServices, Facebook, $http, $cookies) {
+	.controller('mainController', function($scope, tinderServices, Facebook, $http, $cookies) {
 
 		
 		$scope.showContent = [true, false, false, false, false];
@@ -72,6 +84,16 @@
 			$scope.showContent[index] = true;
 		}
 
+		$scope.loginCheck = function() {
+			var token = $cookies.get('tindAngularToken');
+			var id = $cookies.get('tindAngularID');
+			if(token && id) {
+				window.location.assign("/swipe");
+			}
+			else {
+				$scope.fbOverlay = true;
+			}
+		}
 		$scope.login = function() {
 			var url = $scope.fbUrl;
 			$scope.loginError = "" ;
@@ -86,9 +108,10 @@
 						var expiration = arr[2];
 						if(accessToken && expiration) {
 							Facebook.login(function (response) {
-								$cookies.put('tindAngularToken', accessToken, {'expires': expiration});
-								$cookies.put('tindAngularID', response.authResponse.userID, {'expires': expiration});
 
+								var exp = new Date(Date.now() + (expiration*1000));
+								$cookies.put('tindAngularToken', accessToken, {'expires': exp});
+								$cookies.put('tindAngularID', response.authResponse.userID, {'expires': exp});
 								$scope.loginError = "";
 								window.location.assign("/swipe");
 
@@ -117,7 +140,46 @@
 		
 	})
 	.controller('swipeController', function($scope, $cookies, tinderServices, Facebook) {
-		
+		$('.profile-circle').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+			$('.profile-circle').removeClass('animated bounceIn').addClass('circle-animate');
+		});
+
+
+		$scope.dragmove = function (eventName, eventObject) {
+			console.log(eventObject);
+            if(eventObject.throwDirection > 0) {
+            	$('.like').css({'opacity': eventObject.throwOutConfidence});
+            }
+            else {
+            	$('.nope').css({'opacity': eventObject.throwOutConfidence});
+            }
+        };
+
+        $scope.resetCard = function (eventName, eventObject) {
+        	$('.nope').css({'opacity': 0});
+        	$('.like').css({'opacity': 0});
+        }
+
+		$scope.swipeLeft = function(id, index) {
+			tinderServices.swipeLeft($scope.token, id)
+			.then(function (payload) {
+				$scope.nearby.splice(index, 1);
+			})
+			.catch(function (payload) {
+				console.log(payload)
+			});
+		}
+
+		$scope.swipeRight = function(id, index) {
+			tinderServices.swipeRight($scope.token, id)
+			.then(function (payload) {
+				$scope.nearby.splice(index, 1);
+			})
+			.catch(function (payload) {
+				console.log(payload)
+			});
+		}
+
 		$scope.refresh = function() {
 			var token = $cookies.get('tindAngularToken');
 			var id = $cookies.get('tindAngularID');

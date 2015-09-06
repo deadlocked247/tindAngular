@@ -17,15 +17,50 @@
 				<span class="lnr lnr-bubble" id="tinder-chat"></span>
 			</div>
 			<div class="middle-swipe">
-				<!--
-				<div style="background-image:url('{{user.photos[0].url}}')" class="profile-circle">
+				
+				<div ng-show="user && !nearby" style="background-image:url('{{user.photos[0].url}}')" class="profile-circle animated bounceIn">
 				</div>
-				-->
-				<ul class="card-stack" swing-stack>
-				    <li class="card" ng-repeat="person in nearby" swing-card>
-				    	<div style="background-image:url('{{person.photos[0].url}}')" class="card-img">
-				    	</div>
+				
+				
+				<ul ng-show="nearby" class="card-stack" swing-stack>
+					<li class="card bottom-card1">
+						<div style="" class="card-img">
+				    	</div> 
 				    	<div class="card-name">
+				    		Hello!
+				    	</div>
+				    	<div class="card-info">
+					    	<span class="lnr lnr-users" ></span>
+					    	{{person.common_friend_count}}
+					    	<span class="lnr lnr-book"></span>
+					    	{{person.common_like_count}}
+					    </div>
+					</li>
+					<li class="card bottom-card2">
+						<div style="" class="card-img">
+				    	</div> 
+				    	<div class="card-name">
+				    		Hello!
+				    	</div>
+				    	<div class="card-info">
+					    	<span class="lnr lnr-users" ></span>
+					    	{{person.common_friend_count}}
+					    	<span class="lnr lnr-book"></span>
+					    	{{person.common_like_count}}
+					    </div>
+					</li>
+				    <li class="card" ng-repeat="person in nearby" swing-card swing-on-throwoutleft="swipeLeft(person._id, $index)" swing-on-throwoutright="swipeRight(person._id, $index)" swing-on-throwoutright="swipeRight(person._id)"  swing-on-dragmove="dragmove(eventName, eventObject)" swing-on-throwin="resetCard(eventName, eventObject)">
+				    	<div class="no-text" ng-class="{'nope':($index+1) === nearby.length}">
+				    		NOPE
+				    	</div>
+				    	<div class="no-text" ng-class="{'like':($index+1) === nearby.length}">
+				    		LIKE
+				    	</div>
+
+				    	<div style="background-image:url('{{person.photos[0].url}}')" class="card-img">
+				    	</div> 
+				    	<div class="card-name">
+
 				    		{{person.name}}, {{calculateAge(person.birth_date)}}
 				    	</div>
 				    	<div class="card-info">
@@ -45,8 +80,9 @@
 
 <script src="/bower/angular/angular.min.js"></script>
 <script src="/bower/angular-facebook/lib/angular-facebook.js"></script>
-<script src="/bower/angular-swing/dist/angular-swing.min.js"></script>
+<script src="assets/js/swing.js"></script>
 <script src="/bower/angular-route/angular-route.min.js"></script>
 <script src="/bower/angular-cookies/angular-cookies.min.js"></script>
-<script src="/main.js"></script>
 <script src="/bower/jquery/dist/jquery.min.js"></script>
+<script src="/main.js"></script>
+
