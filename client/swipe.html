@@ -1,6 +1,6 @@
 <head>
 	<base href="/swipe">
-	<title>tindAngular</title>
+	<title>Tinder</title>
 	<link rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" href="assets/css/style.css">
 	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
@@ -72,11 +72,37 @@
 					    
 				    </li>
 				</ul>
+				<div class="location-bg" ng-class="{'show-location':locationPop}">
+					<div class="location-popup animated bounceIn" >
+						Discover People In
+						<div class="location-cur">
+							<img class="location-cur-img" src="assets/img/swipe-location.svg">
+							
+							<div class="location-text">
+								My Current Location
+								<p>
+								San Diego, CA
+								</p>
+							</div>
+
+							<img class="location-check" src="assets/img/check.svg">
+
+							<div class="location-bottom ">
+								<img src="assets/img/plane.svg">
+								Add a new location
+							</div>
+						</div>
+						<div class="location-arrow ">
+						</div>
+					</div>
+					
+					<img ng-click="locationPop = false" class="location-blue animated jello" src="assets/img/close-blue.svg">
+				</div>
 				<div ng-show="nearby" class="swipe-container animated bounceIn">
 					<img ng-click="getLastUser()" class="swipe-back-img" src="assets/img/swipe-back.svg">
 					<img ng-click="swipeLeftClick(); clickLeft = true;" class="swipe-left-img" src="assets/img/swipe-left.svg">
 					<img ng-click="swipeRightClick(); clickRight = true;" class="swipe-right-img" src="assets/img/swipe-right.svg">
-					<img class="swipe-location-img" src="assets/img/swipe-location.svg">
+					<img ng-click="locationPop = true" class="swipe-location-img" src="assets/img/swipe-location.svg">
 				</div>
 			</div>
 		</div>

@@ -151,6 +151,7 @@
 		$scope.lastUser = false;
 		$scope.leftClick = false;
 		$scope.rightClick = false;
+		$scope.locationPop = false;
 
 		$scope.getLastUser = function () {
 			if($scope.lastUser) {
@@ -188,21 +189,21 @@
             if(eventObject.throwDirection > 0) {
             	$('.like').css({'opacity': eventObject.throwOutConfidence});
             	var min = Math.max(3, (eventObject.throwOutConfidence * 4));
-            	$('.swipe-left-img').css({'border-width': "10px"});
+            	$('.swipe-left-img').css({'border-width': ""});
             	$('.swipe-right-img').css({'border-width': min});
             }
             else {
             	var min = Math.max(3, (eventObject.throwOutConfidence * 4));
             	$('.nope').css({'opacity': eventObject.throwOutConfidence});
-            	$('.swipe-right-img').css({'border-width': "10px"});
+            	$('.swipe-right-img').css({'border-width': ""});
             	$('.swipe-left-img').css({'border-width': min});
             }
         };
 
         $scope.resetCard = function (eventName, eventObject) {
         	$('.nope').css({'opacity': 0});
-        	$('.swipe-right-img').css({'border-width': "10px"});
-        	$('.swipe-left-img').css({'border-width': "10px"});
+        	$('.swipe-right-img').css({'border-width': ""});
+        	$('.swipe-left-img').css({'border-width': ""});
 			$scope.leftClick = false;
 			$scope.rightClick = false;
         	$('.like').css({'opacity': 0});
@@ -249,6 +250,7 @@
 					$scope.token = payload.data.token;
 					tinderServices.getNearby(payload.data.token)
 					.then(function (payload) {
+						console.log(payload.data);
 						$scope.nearby = payload.data.results;
 					});
 					tinderServices.profile(payload.data.token)
