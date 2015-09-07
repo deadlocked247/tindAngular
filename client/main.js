@@ -42,6 +42,12 @@
 					method:"GET",
 					url:'/swipeRight/'+ token + '/' + id
 				})
+			},
+			getLocation : function(lon, lat) {
+				return $http({
+					method:"GET",
+					url:'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lon + '&sensor=true'
+				})
 			}
 		}
 	})
@@ -151,8 +157,10 @@
 		$scope.lastUser = false;
 		$scope.leftClick = false;
 		$scope.rightClick = false;
+		$scope.locationCity = "";
 		$scope.locationPop = false;
-
+		
+		
 		$scope.getLastUser = function () {
 			if($scope.lastUser) {
 				$scope.lastUser.leftSwipe = false;
@@ -257,6 +265,13 @@
 					.then(function (payload) {
 						console.log(payload.data);
 						$scope.user = payload.data;
+						tinderServices.getLocation(payload.data.pos.lon, payload.data.pos.lat)
+						.then(function (payload) {
+							var location = payload.data.results[2].formatted_address;
+							var arr = location.split(",");
+							$scope.locationCity = arr[0] + ',' + arr[1];
+
+						})
 					})
 				})
 			}
