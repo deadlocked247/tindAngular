@@ -394,10 +394,10 @@ a, a:hover, a:active, a:focus, a:visited, a:focus:active {
     bottom: -340px;
     margin-left: auto;
     margin-right: auto;
-    width: 268px;
+    width: 281px;
 }
 .swipe-left-img {
-  margin:-6px;
+  margin:-4px;
   height: 90px;
   background-color: white;
   padding: 10px;
@@ -406,15 +406,19 @@ a, a:hover, a:active, a:focus, a:visited, a:focus:active {
 }
 
 .swipe-left-img:active {
-    height: 70px;
-    background-color: white;
-    border-radius: 70px;
-    border: 20px #e8e8e8 solid;
-
+  height: 90px;
+  background-color: white;
+  border-radius: 50px;
+  border: 20px #e8e8e8 solid;
+  transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
+  -ms-transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
+  -webkit-transition: all 0.1s ease;
 }
 
 .swipe-right-img {
-  margin:-6px;
+  margin:-4px;
   height: 90px;
   background-color: white;
   padding: 10px;
@@ -422,16 +426,39 @@ a, a:hover, a:active, a:focus, a:visited, a:focus:active {
   border: 10px #e8e8e8 solid;
 }
 
+.swipe-right-img:active {
+  height: 90px;
+  background-color: white;
+  border-radius: 50px;
+  border: 20px #e8e8e8 solid;
+  transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
+  -ms-transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
+  -webkit-transition: all 0.1s ease;
+}
+
 .swipe-back-img {
-  margin:-6px;
+  margin:-4px;
   height: 60px;
   vertical-align: top;
   background-color: white;
   border-radius: 50px;
   border: 10px #e8e8e8 solid;
 }
+.swipe-back-img:active {
+  height: 60px;
+  background-color: white;
+  border-radius: 50px;
+  border: 15px #e8e8e8 solid;
+  transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
+  -ms-transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
+  -webkit-transition: all 0.1s ease;
+}
 .swipe-location-img {
-  margin:-6px;
+  margin:-4px;
   height: 60px;
   vertical-align: top;
   background-color: white;
