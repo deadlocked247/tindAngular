@@ -11,11 +11,9 @@
 	<div ng-controller="swipeController">
 		<div class="tinder-swipe-container">
 			<div class="top-bar">
-				<span class="lnr lnr-cog" id="tinder-settings"></span>
-				<div class="swipe-title">
-					tinder
-				</div>
-				<span class="lnr lnr-bubble" id="tinder-chat"></span>
+				<img src="assets/img/cog.svg" id="tinder-settings">
+				<img src="assets/img/tinder-logo.svg" class="swipe-title">
+				<img src="assets/img/message.svg" id="tinder-chat">
 			</div>
 			<div class="middle-swipe">
 				
@@ -64,9 +62,9 @@
 				    		{{person.name}}, {{calculateAge(person.birth_date)}}
 				    	</div>
 				    	<div class="card-info">
-					    	<span class="lnr lnr-users" ></span>
+					    	<img style="height:20px;display:inline-block" src="assets/img/users.svg">
 					    	{{person.common_friend_count}}
-					    	<span class="lnr lnr-book"></span>
+					    	<img style="height:20px;display:inline-block" src="assets/img/book.svg">
 					    	{{person.common_like_count}}
 					    </div>
 					    
