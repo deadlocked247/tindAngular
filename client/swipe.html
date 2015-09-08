@@ -72,6 +72,27 @@
 					    
 				    </li>
 				</ul>
+				<div class="match-bg" ng-class="{'match':locationPop}">
+					<img class="match-img" src="assets/img/match.svg">
+					<div class="match-text">
+						You and {{match.name}} have liked each other.
+					</div>
+					<div class="match-row">
+						<div class="match-user" style="background-image:url('{{match.picture}}')">
+						</div>
+						<div class="match-match" style="background-image:url('{{person.photos[0].url}}')">
+						</div>
+					</div>
+					<div class="match-send">
+						Send a Message
+					</div>
+					<div class="match-play">
+						Keep Playing
+					</div>
+					<div class="match-share">
+						Tell your friends
+					</div>
+				</div>
 				<div class="location-bg" ng-class="{'show-location':locationPop}">
 					<div class="location-popup animated bounceIn" >
 						Discover People In
@@ -97,6 +118,8 @@
 					</div>
 					
 					<img ng-click="locationPop = false" class="location-blue animated jello" src="assets/img/close-blue.svg">
+					<div ng-click="locationPop = false" style="height:100%;width:100%">
+					</div>
 				</div>
 				<div ng-show="nearby" class="swipe-container animated bounceIn">
 					<img ng-click="getLastUser()" class="swipe-back-img" src="assets/img/swipe-back.svg">

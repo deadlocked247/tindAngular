@@ -159,6 +159,7 @@
 		$scope.rightClick = false;
 		$scope.locationCity = "";
 		$scope.locationPop = false;
+		$scope.match = false;
 		
 		
 		$scope.getLastUser = function () {
@@ -196,12 +197,12 @@
 		$scope.dragmove = function (eventName, eventObject) {
             if(eventObject.throwDirection > 0) {
             	$('.like').css({'opacity': eventObject.throwOutConfidence});
-            	var min = Math.max(3, (eventObject.throwOutConfidence * 4));
+            	var min = Math.max(3, (eventObject.throwOutConfidence * 3));
             	$('.swipe-left-img').css({'border-width': ""});
             	$('.swipe-right-img').css({'border-width': min});
             }
             else {
-            	var min = Math.max(3, (eventObject.throwOutConfidence * 4));
+            	var min = Math.max(3, (eventObject.throwOutConfidence * 3));
             	$('.nope').css({'opacity': eventObject.throwOutConfidence});
             	$('.swipe-right-img').css({'border-width': ""});
             	$('.swipe-left-img').css({'border-width': min});
@@ -228,6 +229,12 @@
 
 			tinderServices.swipeLeft($scope.token, id)
 			.then(function (payload) {
+				if($scope.nearby.length === 1 ) {
+					tinderServices.getNearby(payload.data.token)
+					.then(function (payload) {
+						$scope.nearby.push(payload.data.results);
+					});
+				}
 			})
 			.catch(function (payload) {
 				console.log(payload)
@@ -235,6 +242,10 @@
 		}
 
 		$scope.swipeRight = function(id, index) {
+			var match = {
+				name: $scope.nearby[index].name,
+				picture: $scope.nearby[index].photos[0].url
+			}
 			$timeout(function() {
 				$scope.lastUser = $scope.nearby[index];
 				$scope.nearby.splice(index, 1);
@@ -243,6 +254,17 @@
 			
 			tinderServices.swipeRight($scope.token, id)
 			.then(function (payload) {
+				console.log(payload.data);
+				if(payload.data.match) {
+					$scope.match = match;
+				}
+
+				if($scope.nearby.length === 1 ) {
+					tinderServices.getNearby(payload.data.token)
+					.then(function (payload) {
+						$scope.nearby.push(payload.data.results);
+					});
+				}
 			})
 			.catch(function (payload) {
 				console.log(payload)
