@@ -160,8 +160,10 @@
 		$scope.locationCity = "";
 		$scope.locationPop = false;
 		$scope.match = false;
+		$scope.nextNearby = [];
 		
-		
+		$scope.token = $cookies.get('tindAngularToken');
+
 		$scope.getLastUser = function () {
 			if($scope.lastUser) {
 				$scope.lastUser.leftSwipe = false;
@@ -219,7 +221,6 @@
         }
 
 		$scope.swipeLeft = function(id, index) {
-
 			$timeout(function() {
 				$scope.lastUser = $scope.nearby[index];
 				$scope.nearby.splice(index, 1);
@@ -229,11 +230,16 @@
 
 			tinderServices.swipeLeft($scope.token, id)
 			.then(function (payload) {
-				if($scope.nearby.length === 1 ) {
-					tinderServices.getNearby(payload.data.token)
+				if($scope.nearby.length == 5 ) {
+					tinderServices.getNearby($scope.token)
 					.then(function (payload) {
-						$scope.nearby.push(payload.data.results);
+						$scope.nextNearby = payload.data.results;
 					});
+				}
+				if($scope.nearby.length == 3 ) {
+					for(var x in $scope.nextNearby) {
+						$scope.nearby.push($scope.nextNearby[x]);
+					}
 				}
 			})
 			.catch(function (payload) {
@@ -254,16 +260,17 @@
 			
 			tinderServices.swipeRight($scope.token, id)
 			.then(function (payload) {
-				console.log(payload.data);
-				if(payload.data.match) {
-					$scope.match = match;
-				}
-
-				if($scope.nearby.length === 1 ) {
-					tinderServices.getNearby(payload.data.token)
+				if($scope.nearby.length == 5 ) {
+					tinderServices.getNearby($scope.token)
 					.then(function (payload) {
-						$scope.nearby.push(payload.data.results);
+						console.log(payload);
+						$scope.nextNearby = payload.data.results;
 					});
+				}
+				if($scope.nearby.length == 3 ) {
+					for(var x in $scope.nextNearby) {
+						$scope.nearby.push($scope.nextNearby[x]);
+					}
 				}
 			})
 			.catch(function (payload) {
@@ -307,21 +314,26 @@
 
 		function calculate_age(birth_month,birth_day,birth_year)
 		{
-		    var today_date = new Date();
-		    var today_year = today_date.getFullYear();
-		    var today_month = today_date.getMonth();
-		    var today_day = today_date.getDate();
-		    var age = today_year - birth_year;
+			if((birth_month.length > 0) && (birth_day.length > 0) && (birth_year.length > 0)) {
+			    var today_date = new Date();
+			    var today_year = today_date.getFullYear();
+			    var today_month = today_date.getMonth();
+			    var today_day = today_date.getDate();
+			    var age = today_year - birth_year;
 
-		    if ( today_month < (birth_month - 1))
-		    {
-		        age--;
-		    }
-		    if (((birth_month - 1) == today_month) && (today_day < birth_day))
-		    {
-		        age--;
-		    }
-		    return age;
+			    if ( today_month < (birth_month - 1))
+			    {
+			        age--;
+			    }
+			    if (((birth_month - 1) == today_month) && (today_day < birth_day))
+			    {
+			        age--;
+			    }
+			    return age;
+			}
+			else {
+				return "";
+			}
 		};
 		$scope.calculateAge = function calculateAge(birthday) { // birthday is a date
 		    var arr = birthday.split("-");
