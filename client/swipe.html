@@ -10,12 +10,24 @@
 <body ng-app="app" >
 	<div ng-controller="swipeController">
 		<div class="tinder-swipe-container">
-			<div class="top-bar">
+			<div style="display:none" class="top-bar">
 				<img src="assets/img/cog.svg" id="tinder-settings">
 				<img src="assets/img/tinder-logo.svg" class="swipe-title">
 				<img src="assets/img/message.svg" id="tinder-chat">
 			</div>
-			<div class="middle-swipe">
+			<div class="locationMap">
+				<div class="map-nav">
+					<img class="map-close" src="assets/img/map-close.svg">
+					<input ng-model="locationCity" class="map-search">
+					</input>
+					<img class="map-close-grey" src="assets/img/map-close-grey.svg">
+					<img class="map-close" style="margin-left: 20px;margin-top: 11px;" src="assets/img/map-location.svg">
+				</div>
+				<ui-gmap-google-map options="mapOptions" center='map.center' zoom='map.zoom'>
+					<ui-gmap-marker icon="marker.icon" option="marker.options" idKey="0" coords="marker.coords"></ui-gmap-marker>
+				</ui-gmap-google-map>
+			</div>
+			<div style="display:none" class="middle-swipe">
 				
 				<div ng-show="user && !nearby" style="background-image:url('{{user.photos[0].url}}')" class="profile-circle animated bounceIn">
 				</div>
@@ -84,7 +96,7 @@
 					<div class="match-send">
 						Send a Message
 					</div>
-					<div class="match-play">
+					<div ng-click="match = false" class="match-play">
 						Keep Playing
 					</div>
 					<div class="match-share">
@@ -147,6 +159,10 @@
 <script src="assets/js/swing.js"></script>
 <script src="/bower/angular-route/angular-route.min.js"></script>
 <script src="/bower/angular-cookies/angular-cookies.min.js"></script>
+<script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+<script src="/bower/angular-simple-logger/dist/index.js"></script>
+<script src="/bower/lodash/lodash.min.js"></script>
+<script src="/bower/angular-google-maps/dist/angular-google-maps.js"></script>
 <script src="/bower/jquery/dist/jquery.min.js"></script>
 <script src="/main.js"></script>
 

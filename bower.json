@@ -6,10 +6,13 @@
     "angular": "~1.4.5",
     "angular-cookies": "~1.4.5",
     "angular-facebook": "~0.2.3",
+    "angular-google-maps": "~2.2.0",
     "angular-route": "",
+    "angular-simple-logger": "~0.0.1",
     "angular-swing": "*",
     "bootstrap": "~3.3.5",
     "jquery": "~2.1.4",
-    "jquery-ui": "~1.11.4"
+    "jquery-ui": "~1.11.4",
+    "lodash": "~3.10.1"
   }
 }

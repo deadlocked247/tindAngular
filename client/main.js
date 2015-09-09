@@ -1,9 +1,14 @@
 (function () {
 	'use strict'; 
-	angular.module('app',['ngRoute', 'facebook', 'gajus.swing', 'ngCookies'])
-	.config(['$locationProvider', 'FacebookProvider', function($locationProvider, FacebookProvider) {
+	angular.module('app',['ngRoute', 'facebook', 'gajus.swing', 'ngCookies', 'uiGmapgoogle-maps'])
+	.config(['$locationProvider', 'FacebookProvider', 'uiGmapGoogleMapApiProvider', function($locationProvider, FacebookProvider, uiGmapGoogleMapApiProvider) {
         $locationProvider.html5Mode(true);
         FacebookProvider.init('1690654501163960');
+        uiGmapGoogleMapApiProvider.configure({
+	        key: 'AIzaSyAPOOb60SjxlgyGI_nmE8NBOZvns-6Q6XA',
+	        v: '3.20', 
+	        libraries: 'weather,geometry,visualization'
+   		});
     }])
 	.service('tinderServices', function($q, $http, $location) {
 		return {
@@ -161,9 +166,17 @@
 		$scope.locationPop = false;
 		$scope.match = false;
 		$scope.nextNearby = [];
+
 		
 		$scope.token = $cookies.get('tindAngularToken');
+		
+		$scope.mapOptions = 
+		{
+			disableDefaultUI: true,
+			styles: [{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"color":"#f7f1df"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"color":"#d0e3b4"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","elementType":"geometry","stylers":[{"color":"#fbd3da"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#bde6ab"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffe15f"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efd151"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"black"}]},{"featureType":"transit.station.airport","elementType":"geometry.fill","stylers":[{"color":"#cfb2db"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#a2daf2"}]}]
 
+		}
+		
 		$scope.getLastUser = function () {
 			if($scope.lastUser) {
 				$scope.lastUser.leftSwipe = false;
@@ -293,6 +306,27 @@
 					tinderServices.profile(payload.data.token)
 					.then(function (payload) {
 						console.log(payload.data);
+						$scope.map = 
+						{ 
+							center: { 
+								latitude: payload.data.pos.lat, 
+								longitude: payload.data.pos.lon
+							}, 
+							zoom: 12
+						};
+						$scope.marker = 
+						{
+							icon: {
+								url: 'assets/img/blue-pin.svg'
+							},
+							options: {
+								draggable: true
+							},
+							coords: {
+						        latitude: payload.data.pos.lat, 
+								longitude: payload.data.pos.lon
+							}
+					    }
 						$scope.user = payload.data;
 						tinderServices.getLocation(payload.data.pos.lon, payload.data.pos.lat)
 						.then(function (payload) {

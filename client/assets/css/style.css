@@ -743,3 +743,45 @@ a, a:hover, a:active, a:focus, a:visited, a:focus:active {
 .show-match {
   display:block;
 }
+.map-nav {
+  border-radius:10px 10px 0px 0px;
+  background-color: white;
+}
+.map-close {
+  height:25px;
+  margin:15px;
+}
+.map-search {
+  border: 0px;
+    background-color: F6F6F6;
+    border-radius: 5px;
+    padding: 5px;
+    width: 237px;
+    background-image: url('../img/map-search.svg');
+    background-position: 12px 8px;
+    background-repeat: no-repeat;
+    background-size: 13px 15px;
+    padding-left: 36px;
+    color: #606060;
+}
+.map-close-grey {
+    width: 10px;
+    margin-left: -26px;
+    margin-top:-2px;
+}
+.map-search:focus {
+  outline:none;
+}
+.angular-google-map-container { 
+  height: 473px; 
+  border-radius: 0px 0px 10px 10px;
+}
+a[href^="http://maps.google.com/maps"]{display:none !important}
+a[href^="https://maps.google.com/maps"]{display:none !important}
+
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display:none;
+}
+.gmnoprint div {
+    background:none !important;
+}
