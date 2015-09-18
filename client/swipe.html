@@ -60,7 +60,7 @@
 					    	{{person.common_like_count}}
 					    </div>
 					</li>
-				    <li class="card" ng-class="{'swipe-left':person.leftSwipe, 'swipe-right':person.rightSwipe}"  ng-repeat="person in nearby" swing-card swing-on-throwoutleft="swipeLeft(person._id, $index)" swing-on-throwoutright="swipeRight(person._id, $index)" swing-on-throwoutright="swipeRight(person._id)"  swing-on-dragmove="dragmove(eventName, eventObject)" swing-on-throwin="resetCard(eventName, eventObject)" >
+				    <li class="card" ng-click="showInfo(person)" ng-class="{'swipe-left':person.leftSwipe, 'swipe-right':person.rightSwipe}"  ng-repeat="person in nearby" swing-card swing-on-throwoutleft="swipeLeft(person._id, $index)" swing-on-throwoutright="swipeRight(person._id, $index)" swing-on-throwoutright="swipeRight(person._id)"  swing-on-dragmove="dragmove(eventName, eventObject)" swing-on-throwin="resetCard(eventName, eventObject)" >
 				    	<div class="no-text" ng-class="{'nope':($index+1) === nearby.length}">
 				    		NOPE
 				    	</div>

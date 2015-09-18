@@ -184,7 +184,10 @@
 				$scope.nearby.push($scope.lastUser);
 			}
 		}
-
+		$scope.showInfo = function(person) {
+			//will show a modal with the person's bio
+			console.log(person.bio);
+		}
 		$scope.swipeLeftClick = function () {
 			$scope.leftClick = true;
 			if(!$scope.rightClick) {
