@@ -183,7 +183,6 @@
 		$scope.getMessages = function(token, date) {
 			tinderServices.getMessages(token)
 			.then(function (payload) {
-				console.log(payload);
 				$scope.matches = payload.data;
 			})
 			.catch(function (payload) {
@@ -208,13 +207,11 @@
 		}
 		$scope.showInfo = function(person) {
 			//will show a modal with the person's bio
-			console.log(person.bio);
 		}
 		$scope.swipeLeftClick = function () {
 			$scope.leftClick = true;
 			if(!$scope.rightClick) {
 				var id = $scope.nearby[$scope.nearby.length - 1]._id;
-				console.log($scope.nearby[$scope.nearby.length - 1])
 				$scope.nearby[$scope.nearby.length - 1].leftSwipe = true;
 				$('.nope').css({'opacity': 1});
 				$scope.swipeLeft(id, ($scope.nearby.length-1));	
@@ -226,7 +223,6 @@
 			$scope.rightClick = true;
 			if(!$scope.leftClick) {
 				var id = $scope.nearby[$scope.nearby.length - 1]._id;
-				console.log($scope.nearby[$scope.nearby.length - 1])
 				$scope.nearby[$scope.nearby.length - 1].rightSwipe = true;
 				$('.like').css({'opacity': 1});
 				$scope.swipeRight(id, ($scope.nearby.length-1));
@@ -301,7 +297,6 @@
 				if($scope.nearby.length == 5 ) {
 					tinderServices.getNearby($scope.token)
 					.then(function (payload) {
-						console.log(payload);
 						$scope.nextNearby = payload.data.results;
 					});
 				}
@@ -328,7 +323,6 @@
 					.then(function (payload) {
 
 						$scope.nearby = payload.data.results;
-						console.log(payload);
 					});
 					tinderServices.profile(payload.data.token)
 					.then(function (payload) {
