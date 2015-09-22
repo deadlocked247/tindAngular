@@ -154,7 +154,7 @@
   text-align: center;
   color: #ff6748;
   position: relative;
-  left: 85px;
+  left: 28%;
   letter-spacing: -1.5px;
   width: 70px;
   margin-left: auto;
@@ -796,12 +796,90 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     text-align: center;
     color: #ff6748;
     position: relative;
-    left: 94px;
+    left: 32%;
     letter-spacing: -1.5px;
     width: 45px;
     margin-left: auto;
     margin-right: auto;
+}
 
+.messages-search {
+  background-color: #f0f0f0;
+  border: 0px;
+  border-radius: 5px;
+  width: 100%;
+  padding: 6px;
+  color:#8e8e93;
+}
+
+.messages-search-center {
+  background-color: #f0f0f0;
+  border: 0px;
+  font-family: 'proxima-soft-normal', sans-serif;
+  border-radius: 5px;
+  width: 100%;
+  padding: 4px;
+  padding-left:33%;
+  color:#8e8e93;
+}
+
+.messages-search-center:focus {
+  width: 80%;
+  padding-left:10px;
+  outline:none;
+}
+
+.messages-search-center::-webkit-input-placeholder {
+  font-family:'proxima-soft-normal', 'Linearicons-Free';
+  font-size:.9em;
+  padding-top:2px;
+  vertical-align: sub;
+}
+
+
+.messages-search-center:-moz-placeholder {
+  font-family:'proxima-soft-normal', 'Linearicons-Free';
+  font-size:.9em;
+  padding-top:2px;
+  vertical-align: sub;
+}
+
+.messages-search-center::-moz-placeholder {
+  font-family:'proxima-soft-normal', 'Linearicons-Free';
+  font-size:.9em;
+  padding-top:2px;
+  vertical-align: sub;
+}
+
+.messages-search-center:-ms-input-placeholder {
+  font-family:'proxima-soft-normal', 'Linearicons-Free';
+  font-size:.9em;
+  padding-top:2px;
+  vertical-align: sub;
+}
+
+.messages-profile-img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+}
+
+.messages-ul {
+  list-style: none;
+  margin:0px 0px;
+  
+  padding: 0px 0px;
+}
+
+.messages-overflow {
+  height: 472px;
+  overflow: scroll;  
+}
+
+<<<<<<< HEAD
 }
 
 .match-image{
@@ -818,6 +896,10 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
   font-style: normal;
   color: grey;
   font-size: 16pt;
+}
+
+.detail-imageContainer img{
+  max-width: 100%;  
 }
 
 .detail-lowerName {
@@ -840,7 +922,86 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
   display: inline;
 }
 
-
 .detail-swipeRight, .detail-swipeLeft {
   height: 40px;
+  cursor: pointer;
+}
+
+.messages-ul>li {
+  margin-top: -3px;
+  margin-bottom: 5px;
+}
+
+.messages-search-center>span {
+    font-size: .9em;
+    padding-right: 3px;
+}
+
+.messages-info {
+  display: inline-block;
+  height: 75px;
+  position: relative;
+  top: -14px;
+  right: -20px;
+}
+
+.messages-profile-name {
+  font-size: 1.25em;
+  color: #424242;
+  font-family: "HelveticaNeue-medium", "Helvetica Neue medium", "Helvetica Neue", 
+  Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+.messages-line {
+  margin: 0px;
+  width: 77%;
+  float: right;
+  margin-right: -11px;
+  margin-top: -6px;
+  margin-top: -12px;
+}
+
+
+.messages-profile-date {
+  font-size: 1.25em;
+  color: #ababab;
+  font-family: "HelveticaNeue-Regular", "Helvetica Neue Regular", "Helvetica Neue", 
+  Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+
+.messages-search-cancel {
+  padding: 13px;
+  color: #FC6952;
+  letter-spacing: 0.5px;
+  position: relative;
+  float: right;
+  top: -37px;
+  right: -9px;
+  z-index: -1;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+
+.white-fade {
+  height: 75px;
+  width: 100%;
+  background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,0) 7%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(7%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0) 7%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0) 7%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0) 7%,rgba(255,255,255,1) 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,0) 7%,rgba(255,255,255,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+
+  position: absolute;
+  margin-left: -10px;
+  border:5px;
+  border-radius: 5px;
+  z-index: 999;
+  top:506px;
 }

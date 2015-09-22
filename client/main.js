@@ -53,6 +53,12 @@
 					method:"GET",
 					url:'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lon + '&sensor=true'
 				})
+			},
+			getMessages : function(token) {
+				return $http({
+					method:"GET",
+					url: '/messages/'+token
+				})
 			}
 		}
 	})
@@ -165,14 +171,29 @@
 		$scope.locationCity = "";
 		$scope.locationPop = false;
 		$scope.match = false;
+		$scope.messages=false;
+		$scope.swiping = true;
 		$scope.nextNearby = [];
 		$scope.showMap = false;
 		$scope.showMatches = true;
 		$scope.showMatchDetailView = false;
 		$scope.currentMatch = [];
 		
+		
+		
 		$scope.token = $cookies.get('tindAngularToken');
 		
+		$scope.getMessages = function(token, date) {
+			tinderServices.getMessages(token)
+			.then(function (payload) {
+				$scope.matches = payload.data;
+			})
+			.catch(function (payload) {
+				console.log(payload);
+			});
+		}
+
+
 		$scope.mapOptions = 
 		{
 			disableDefaultUI: true,
@@ -204,7 +225,6 @@
 			$scope.leftClick = true;
 			if(!$scope.rightClick) {
 				var id = $scope.nearby[$scope.nearby.length - 1]._id;
-				console.log($scope.nearby[$scope.nearby.length - 1])
 				$scope.nearby[$scope.nearby.length - 1].leftSwipe = true;
 				$('.nope').css({'opacity': 1});
 				$scope.swipeLeft(id, ($scope.nearby.length-1));	
@@ -216,7 +236,6 @@
 			$scope.rightClick = true;
 			if(!$scope.leftClick) {
 				var id = $scope.nearby[$scope.nearby.length - 1]._id;
-				console.log($scope.nearby[$scope.nearby.length - 1])
 				$scope.nearby[$scope.nearby.length - 1].rightSwipe = true;
 				$('.like').css({'opacity': 1});
 				$scope.swipeRight(id, ($scope.nearby.length-1));
@@ -291,7 +310,6 @@
 				if($scope.nearby.length == 5 ) {
 					tinderServices.getNearby($scope.token)
 					.then(function (payload) {
-						console.log(payload);
 						$scope.nextNearby = payload.data.results;
 					});
 				}
@@ -312,15 +330,15 @@
 			if(token && id) {
 				tinderServices.auth(id, token)
 				.then(function (payload) {
+					$scope.getMessages(payload.data.token);
 					$scope.token = payload.data.token;
 					tinderServices.getNearby(payload.data.token)
 					.then(function (payload) {
-						console.log(payload.data);
+
 						$scope.nearby = payload.data.results;
 					});
 					tinderServices.profile(payload.data.token)
 					.then(function (payload) {
-						console.log(payload.data);
 						$scope.map = 
 						{ 
 							center: { 
