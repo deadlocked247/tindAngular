@@ -415,12 +415,14 @@
 			}
 		};
 		$scope.calculateAge = function calculateAge(birthday) { // birthday is a date
-		    var arr = birthday.split("-");
-		    var year = arr[0];
-		    var month = arr[1];
-		    var arr2 = arr[2].split("T");
-		    var day = arr2[0];
-		    return calculate_age(month,day,year);
+			if (birthday) {
+				var arr = birthday.split("-");
+				var year = arr[0];
+				var month = arr[1];
+				var arr2 = arr[2].split("T");
+				var day = arr2[0];
+				return calculate_age(month,day,year);
+			}
 		};
 	}) 
 	.config(['$routeProvider', function($routeProvider) {

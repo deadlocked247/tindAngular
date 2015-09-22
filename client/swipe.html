@@ -95,7 +95,7 @@
 				<div class="detail-nameAndAgeContainer">
 					<p class="detail-lowerName">{{ currentMatch.name }},</p>
 					<!-- TODO: calculating the age here gives us errors, if currentMatch hasn't been loaded yet -->
-					<p class="detail-age"></p>
+					<p class="detail-age">{{ calculateAge(currentMatch.birth_date) }}</p>
 				</div>
 				<div class="detail-distanceAndActiveContainer">
 					<p class="detail-distance">{{ currentMatch.distance_mi }} miles away</p>
