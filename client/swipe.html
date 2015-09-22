@@ -75,8 +75,23 @@
 				</div>
 				<!-- TODO: load all the user images -->
 				<div class="detail-imageContainer">
-					<img ng-src="{{currentMatch.photos[0].url}}" class="match-image">
+					<div id="matchCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+						<!-- Indicators -->
+						<ol class="carousel-indicators">
+							<ul>
+							   <li ng-repeat="image in currentMatch.photos track by $index" data-target="#matchCarousel" ng-click="slidePhotoTo( $index )" class="active"></li>
+							</ul>
+						</ol>
+					      
+						<!-- Wrapper for slides -->
+						<div class="carousel-inner" role="listbox">
+						  <div ng-repeat="image in currentMatch.photos" class="item" ng-class="{active: image.active}">
+						    <img ng-src="{{ image.url }}">
+						  </div>
+						</div>
+					</div>
 				</div>
+
 				<div class="detail-nameAndAgeContainer">
 					<p class="detail-lowerName">{{ currentMatch.name }},</p>
 					<!-- TODO: calculating the age here gives us errors, if currentMatch hasn't been loaded yet -->
@@ -229,5 +244,6 @@
 <script src="/bower/lodash/lodash.min.js"></script>
 <script src="/bower/angular-google-maps/dist/angular-google-maps.js"></script>
 <script src="/bower/jquery/dist/jquery.min.js"></script>
+<script src="/bower/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/main.js"></script>
 

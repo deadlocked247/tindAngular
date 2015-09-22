@@ -214,13 +214,25 @@
 			$scope.currentMatch = person;
 			$scope.showMatchDetailView = true;
 			$scope.showMatches = false;
+			//set their first photo to active for the purposes of the carousel
+			$scope.currentMatch.photos[0].active = true;
 		}
 		
 		$scope.hideInfo = function() {
 			$scope.showMatchDetailView = false;
 			$scope.showMatches = true;
 		}
-	
+		
+		/*
+		 * used for changing the active photo
+		 */
+		$scope.slidePhotoTo = function( index ){
+			angular.forEach($scope.currentMatch.photos, function(value, key){
+				value.active = false;
+			});
+			$scope.currentMatch.photos[index].active = true;	
+		}
+		
 		$scope.swipeLeftClick = function () {
 			$scope.leftClick = true;
 			if(!$scope.rightClick) {
