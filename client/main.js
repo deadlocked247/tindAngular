@@ -174,6 +174,8 @@
 		$scope.messages=false;
 		$scope.swiping = true;
 		$scope.nextNearby = [];
+		$scope.showMap = false;
+		$scope.showMatches = true;
 
 		
 		

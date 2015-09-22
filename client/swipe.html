@@ -50,9 +50,10 @@
 				<img src="assets/img/tinder-logo.svg" class="swipe-title">
 				<img ng-click="messages=true;swiping=false;" src="assets/img/message.svg" id="tinder-chat">
 			</div>
-			<div style="display:none;" class="locationMap">
+
+			<div ng-show="showMap" class="locationMap">
 				<div class="map-nav">
-					<img class="map-close" src="assets/img/map-close.svg">
+					<img ng-click="showMap = false; showMatches = true" class="map-close" src="assets/img/map-close.svg">
 					<input ng-model="locationCity" class="map-search">
 					</input>
 					<img class="map-close-grey" src="assets/img/map-close-grey.svg">
@@ -62,7 +63,7 @@
 					<ui-gmap-marker icon="marker.icon" option="marker.options" idKey="0" coords="marker.coords"></ui-gmap-marker>
 				</ui-gmap-google-map>
 			</div>
-			<div class="middle-swipe">
+			<div ng-show="showMatches" class="middle-swipe">
 				
 				<div ng-show="user && !nearby" style="background-image:url('{{user.photos[0].url}}')" class="profile-circle animated bounceIn">
 				</div>
@@ -153,7 +154,7 @@
 
 							<img class="location-check" src="assets/img/check.svg">
 
-							<div class="location-bottom ">
+							<div ng-click="showMatches = false; showMap = true" class="location-bottom ">
 								<img src="assets/img/plane.svg">
 								Add a new location
 							</div>
