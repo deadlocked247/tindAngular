@@ -9,12 +9,19 @@
 </head>
 <body ng-app="app" >
 	<div ng-controller="swipeController">
-		<div class="tinder-swipe-container">
-			<div style="display:none" class="top-bar">
+		<div ng-init="messages=false;swiping = true;" ng-show="messages" class="tinder-swipe-container">
+			<div class="top-bar">
+				<img ng-click="messages=false;swiping=true;" style="height:32px" src="assets/img/tinder-grey.svg" id="tinder-settings">
+				<img src="assets/img/message-red.svg" class="messages-middle">
+			</div>
+		</div>
+		<div ng-show="swiping" class="tinder-swipe-container">
+			<div class="top-bar">
 				<img src="assets/img/cog.svg" id="tinder-settings">
 				<img src="assets/img/tinder-logo.svg" class="swipe-title">
-				<img src="assets/img/message.svg" id="tinder-chat">
+				<img ng-click="messages=true;swiping=false;" src="assets/img/message.svg" id="tinder-chat">
 			</div>
+
 			<div ng-show="showMap" class="locationMap">
 				<div class="map-nav">
 					<img ng-click="showMap = false; showMatches = true" class="map-close" src="assets/img/map-close.svg">
