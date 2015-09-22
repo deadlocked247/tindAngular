@@ -130,7 +130,7 @@
 						var expiration = arr[2];
 						if(accessToken && expiration) {
 							Facebook.login(function (response) {
-
+								console.log(response);
 								var exp = new Date(Date.now() + (expiration*1000));
 								$cookies.put('tindAngularToken', accessToken, {'expires': exp});
 								$cookies.put('tindAngularID', response.authResponse.userID, {'expires': exp});

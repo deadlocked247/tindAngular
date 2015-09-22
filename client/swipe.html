@@ -10,12 +10,12 @@
 </head>
 <body ng-app="app" >
 	<div ng-controller="swipeController">
-		<div class="tinder-swipe-container hide"  ng-class="{'show':messages}">
+		<div style="overflow: hidden;" class="tinder-swipe-container hide" ng-class="{'show':messages}">
 			<div class="top-bar">
 				<img ng-click="messages=false;swiping=true;" style="height:32px" src="assets/img/tinder-grey.svg" id="tinder-settings">
 				<img src="assets/img/message-red.svg" class="messages-middle">
 			</div>
-			<div style="padding:10px;" class="middle-swipe messages-overflow">
+			<div style="padding:10px;" class="middle-swipe messages-overflow animated slideInRight">
 
 				<div style="margin-bottom:20px">
 					<input ng-model="nameSearch" placeholder="&#xe86f; Search {{matches.matches.length || 0}} Matches" class="messages-search-center">
