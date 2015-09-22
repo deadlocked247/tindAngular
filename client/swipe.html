@@ -172,7 +172,7 @@
 				    		LIKE
 				    	</div>
 
-				    	<div ng-style="{'background-image':url(person.photos[0].url)}" class="card-img">
+				    	<div style="background-image:url({{person.photos[0].url}})" class="card-img">
 				    	</div> 
 				    	<div class="card-name">
 				    		{{person.name}}, {{calculateAge(person.birth_date)}}
