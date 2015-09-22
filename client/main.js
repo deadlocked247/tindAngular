@@ -168,7 +168,8 @@
 		$scope.nextNearby = [];
 		$scope.showMap = false;
 		$scope.showMatches = true;
-
+		$scope.showMatchDetailView = false;
+		$scope.currentMatch = [];
 		
 		$scope.token = $cookies.get('tindAngularToken');
 		
@@ -186,10 +187,19 @@
 				$scope.nearby.push($scope.lastUser);
 			}
 		}
+		
 		$scope.showInfo = function(person) {
-			//will show a modal with the person's bio
-			console.log(person.bio);
+			console.log(person);
+			$scope.currentMatch = person;
+			$scope.showMatchDetailView = true;
+			$scope.showMatches = false;
 		}
+		
+		$scope.hideInfo = function() {
+			$scope.showMatchDetailView = false;
+			$scope.showMatches = true;
+		}
+	
 		$scope.swipeLeftClick = function () {
 			$scope.leftClick = true;
 			if(!$scope.rightClick) {

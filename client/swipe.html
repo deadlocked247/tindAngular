@@ -34,6 +34,35 @@
 					<ui-gmap-marker icon="marker.icon" option="marker.options" idKey="0" coords="marker.coords"></ui-gmap-marker>
 				</ui-gmap-google-map>
 			</div>
+			<div ng-show="showMatchDetailView" class="matchDetailView" ng-model="currentMatch">
+				<div class="detail-subNavBar">
+					<!-- TODO: get a chevron icon instead of a text carat -->
+					<i ng-click="hideInfo()" class="arrow-back">< <p class="detail-topName"> {{ currentMatch.name }}</p></i>
+					
+					<div class="detail-controls pull-right">
+						<img ng-click="swipeLeftClick(); clickLeft = true; hideInfo();" class="detail-swipeLeft" src="assets/img/swipe-left.svg">
+						<img ng-click="swipeRightClick(); clickRight = true; hideInfo();" class="detail-swipeRight" src="assets/img/swipe-right.svg">	
+					</div>
+				</div>
+				<!-- TODO: load all the user images -->
+				<div class="detail-imageContainer">
+					<img ng-src="{{currentMatch.photos[0].url}}" class="match-image">
+				</div>
+				<div class="detail-nameAndAgeContainer">
+					<p class="detail-lowerName">{{ currentMatch.name }},</p>
+					<!-- TODO: calculating the age here gives us errors, if currentMatch hasn't been loaded yet -->
+					<p class="detail-age"></p>
+				</div>
+				<div class="detail-distanceAndActiveContainer">
+					<p class="detail-distance">{{ currentMatch.distance_mi }} miles away</p>
+					<!-- TODO: write a function that calculates length from currentMatch.ping_time to now -->
+					<!--<p class="detail-lastActive">Active {{ currentMatch.ping_time }}</p>-->
+				</div>
+				<div class="detail-bioContainer">
+					{{ currentMatch.bio }}
+				</div>
+				
+			</div>
 			<div ng-show="showMatches" class="middle-swipe">
 				
 				<div ng-show="user && !nearby" style="background-image:url('{{user.photos[0].url}}')" class="profile-circle animated bounceIn">

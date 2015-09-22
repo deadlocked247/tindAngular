@@ -803,3 +803,44 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     margin-right: auto;
 
 }
+
+.match-image{
+  max-width: 100%;
+}
+
+.detail-subNavBar {
+  height: 40px;
+  border-bottom: 3px solid rgb(239, 236, 236);
+}
+
+.arrow-back, .detail-topName{
+  display: inline;
+  font-style: normal;
+  color: grey;
+  font-size: 16pt;
+}
+
+.detail-lowerName {
+  display: inline;
+  font-weight: bold;
+}
+
+.detail-age {
+  display: inline;
+}
+
+.detail-distance {
+  display: inline;
+  color: grey;
+  font-weight: bold;
+}
+
+.detail-lastActive {
+  color: grey;
+  display: inline;
+}
+
+
+.detail-swipeRight, .detail-swipeLeft {
+  height: 40px;
+}
