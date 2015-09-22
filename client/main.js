@@ -166,6 +166,8 @@
 		$scope.locationPop = false;
 		$scope.match = false;
 		$scope.nextNearby = [];
+		$scope.showMap = false;
+		$scope.showMatches = true;
 
 		
 		$scope.token = $cookies.get('tindAngularToken');
