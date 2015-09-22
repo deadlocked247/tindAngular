@@ -79,7 +79,7 @@
 						<!-- Indicators -->
 						<ol class="carousel-indicators">
 							<ul>
-							   <li ng-repeat="image in currentMatch.photos track by $index" data-target="#matchCarousel" ng-click="slidePhotoTo( $index )" class="active"></li>
+							   <li ng-repeat="image in currentMatch.photos track by $index" data-target="#matchCarousel" ng-class="{active: image.active}" ng-click="slidePhotoTo( $index )"></li>
 							</ul>
 						</ol>
 					      
