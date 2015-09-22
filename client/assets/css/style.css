@@ -139,6 +139,7 @@
   height:530px;
   margin-top: 50px;
   border-radius:10px;
+  overflow: hidden;
   border:1px solid #f2f2f2;
 }
 .card {
@@ -877,9 +878,10 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 .messages-overflow {
   height: 472px;
   overflow: scroll;  
-}
-
-<<<<<<< HEAD
+  position: relative;
+  right: 0px;
+  -webkit-animation-duration: 0.5s !important;
+  animation-duration: 0.5s !important;
 }
 
 .match-image{
