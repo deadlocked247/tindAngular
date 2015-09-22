@@ -53,6 +53,12 @@
 					method:"GET",
 					url:'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lon + '&sensor=true'
 				})
+			},
+			getMessages : function(token) {
+				return $http({
+					method:"GET",
+					url: '/messages/'+token
+				})
 			}
 		}
 	})
@@ -165,11 +171,27 @@
 		$scope.locationCity = "";
 		$scope.locationPop = false;
 		$scope.match = false;
+		$scope.messages=false;
+		$scope.swiping = true;
 		$scope.nextNearby = [];
 
 		
+		
+		
 		$scope.token = $cookies.get('tindAngularToken');
 		
+		$scope.getMessages = function(token, date) {
+			tinderServices.getMessages(token)
+			.then(function (payload) {
+				console.log(payload);
+				$scope.matches = payload.data;
+			})
+			.catch(function (payload) {
+				console.log(payload);
+			});
+		}
+
+
 		$scope.mapOptions = 
 		{
 			disableDefaultUI: true,
@@ -300,15 +322,16 @@
 			if(token && id) {
 				tinderServices.auth(id, token)
 				.then(function (payload) {
+					$scope.getMessages(payload.data.token);
 					$scope.token = payload.data.token;
 					tinderServices.getNearby(payload.data.token)
 					.then(function (payload) {
-						console.log(payload.data);
+
 						$scope.nearby = payload.data.results;
+						console.log(payload);
 					});
 					tinderServices.profile(payload.data.token)
 					.then(function (payload) {
-						console.log(payload.data);
 						$scope.map = 
 						{ 
 							center: { 

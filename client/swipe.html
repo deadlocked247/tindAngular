@@ -5,16 +5,45 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
 	<link rel="stylesheet" href="assets/css/animate.css">
+	<link rel="stylesheet" href="assets/css/icons.css">
 	<link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
 </head>
 <body ng-app="app" >
 	<div ng-controller="swipeController">
-		<div ng-init="messages=false;swiping = true;" ng-show="messages" class="tinder-swipe-container">
+		<div class="tinder-swipe-container hide"  ng-class="{'show':messages}">
 			<div class="top-bar">
 				<img ng-click="messages=false;swiping=true;" style="height:32px" src="assets/img/tinder-grey.svg" id="tinder-settings">
 				<img src="assets/img/message-red.svg" class="messages-middle">
 			</div>
+			<div style="padding:10px;" class="middle-swipe messages-overflow">
+
+				<div style="margin-bottom:20px">
+					<input ng-model="nameSearch" placeholder="&#xe86f; Search {{matches.matches.length || 0}} Matches" class="messages-search-center">
+					</input>
+					<div class="messages-search-cancel">
+						Cancel
+					</div>
+				</div>
+
+				<ul class="messages-ul">
+					<li ng-repeat="match in matches.matches | filter:nameSearch">
+						<div style="background-image:url('{{match.person.photos[0].processedFiles[2].url}}')" class="messages-profile-img">
+						</div>
+						<div class="messages-info">
+							<div class="messages-profile-name">
+								{{match.person.name}}
+							</div>
+							<div ng-init="date = match.created_date.toString().split('-'); date2 = date[2].split('T');" class="messages-profile-date">
+								Matched on {{date[1]}}/{{date2[0]}}
+							</div>
+						</div>
+						<hr class="messages-line"></hr>
+					</li>
+				</ul>
+
+			</div>
 		</div>
+		<div ng-show="messages" class="white-fade"></div>
 		<div ng-show="swiping" class="tinder-swipe-container">
 			<div class="top-bar">
 				<img src="assets/img/cog.svg" id="tinder-settings">
