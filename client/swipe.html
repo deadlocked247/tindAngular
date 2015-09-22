@@ -9,32 +9,56 @@
 	<link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
 </head>
 <body ng-app="app" >
+
 	<div ng-controller="swipeController">
+
+		<!--MESSAGES START-->
+		<div class="tinder-swipe-container hide" ng-class="{'show':message}">
+			<div class="animated fadeIn">
+				<div class="top-bar ">
+					<img ng-click="message=false;messages = true;" style="height:35px" src="assets/img/back-arrow.svg" id="tinder-settings">
+					<div class="message-middle ">
+						<div style="background-image:url('{{currentMatchMessage.person.photos[0].processedFiles[3].url}}')" class="message-middle-img">
+						</div>
+						<div class="message-middle-name">
+							{{currentMatchMessage.person.name}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--MESSAGES END -->
 		<div style="overflow: hidden;" class="tinder-swipe-container hide" ng-class="{'show':messages}">
 			<div class="top-bar">
-				<img ng-click="messages=false;swiping=true;" style="height:32px" src="assets/img/tinder-grey.svg" id="tinder-settings">
+				<img ng-click="messages=false;swiping=true;fromMessages = true;" style="height:32px" src="assets/img/tinder-grey.svg" id="tinder-settings">
 				<img src="assets/img/message-red.svg" class="messages-middle">
 			</div>
-			<div style="padding:10px;" class="middle-swipe messages-overflow animated slideInRight">
-
-				<div style="margin-bottom:20px">
-					<input ng-model="nameSearch" placeholder="&#xe86f; Search {{matches.matches.length || 0}} Matches" class="messages-search-center">
+			<div style="padding:10px;" class="middle-swipe messages-overflow animated slideInRight" ng-class="{'scroll-locked':searchOverlay && !(nameSearch && (nameSearch.length > 0))}">
+				<div style="margin-bottom:35px">
+					<input ng-focus="searchOverlay = true" ng-blur="searchOverlay = false;nameSearch = ''" ng-model="nameSearch" placeholder="&#xe86f; Search {{matches.matches.length || 0}} Matches" class="messages-search-center">
 					</input>
 					<div class="messages-search-cancel">
 						Cancel
 					</div>
 				</div>
-
+				<div ng-show="searchOverlay && !(nameSearch && (nameSearch.length > 0))" class="white-overlay animated fadeIn">
+				</div>
 				<ul class="messages-ul">
-					<li ng-repeat="match in matches.matches | filter:nameSearch">
+					<li ng-click="showMessages(match)" ng-show="match.person.name" ng-repeat="match in matches.matches.slice().reverse() | filter:nameSearch">
 						<div style="background-image:url('{{match.person.photos[0].processedFiles[2].url}}')" class="messages-profile-img">
 						</div>
 						<div class="messages-info">
 							<div class="messages-profile-name">
 								{{match.person.name}}
 							</div>
-							<div ng-init="date = match.created_date.toString().split('-'); date2 = date[2].split('T');" class="messages-profile-date">
+							<div ng-hide="match.messages.length > 0" ng-init="date = match.created_date.toString().split('-'); date2 = date[2].split('T');" class="messages-profile-date">
 								Matched on {{date[1]}}/{{date2[0]}}
+							</div>
+							<div ng-show="(match.messages.length > 0)&&(match.messages[match.messages.length - 1].message.length > 28)" class="messages-profile-date">
+								{{match.messages[match.messages.length - 1].message.substring(0,28)}}...
+							</div>
+							<div ng-show="(match.messages.length > 0)&&(match.messages[match.messages.length - 1].message.length <= 28)" class="messages-profile-date">
+								{{match.messages[match.messages.length - 1].message}}
 							</div>
 						</div>
 						<hr class="messages-line"></hr>
@@ -45,10 +69,10 @@
 		</div>
 		<div ng-show="messages" class="white-fade"></div>
 		<div ng-show="swiping" class="tinder-swipe-container">
-			<div class="top-bar">
+			<div ng-hide="showMap" class="top-bar">
 				<img src="assets/img/cog.svg" id="tinder-settings">
 				<img src="assets/img/tinder-logo.svg" class="swipe-title">
-				<img ng-click="messages=true;swiping=false;" src="assets/img/message.svg" id="tinder-chat">
+				<img ng-click="messages=true;swiping=false;fromMessages = false;" src="assets/img/message.svg" id="tinder-chat">
 			</div>
 
 			<div ng-show="showMap" class="locationMap hide" ng-class="{'show':showMap}">
@@ -107,9 +131,9 @@
 				</div>
 				
 			</div>
-			<div ng-show="showMatches" class="middle-swipe">
+			<div ng-show="showMatches" class="middle-swipe" ng-class="{'animated slideInLeft':fromMessages}">
 				
-				<div ng-show="user && !nearby" style="background-image:url('{{user.photos[0].url}}')" class="profile-circle animated bounceIn">
+				<div ng-show="user && !nearby" ng-style="profileImageClass" class="profile-circle animated bounceIn">
 				</div>
 				
 				
@@ -148,7 +172,7 @@
 				    		LIKE
 				    	</div>
 
-				    	<div style="background-image:url('{{person.photos[0].url}}')" class="card-img">
+				    	<div ng-style="{'background-image':url(person.photos[0].url)}" class="card-img">
 				    	</div> 
 				    	<div class="card-name">
 				    		{{person.name}}, {{calculateAge(person.birth_date)}}
@@ -198,7 +222,7 @@
 
 							<img class="location-check" src="assets/img/check.svg">
 
-							<div ng-click="showMatches = false; showMap = true" class="location-bottom ">
+							<div ng-click="showMatches = false; showMap = true;fromMessages = false;" class="location-bottom ">
 								<img src="assets/img/plane.svg">
 								Add a new location
 							</div>

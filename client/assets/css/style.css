@@ -147,6 +147,8 @@
 }
 .middle-swipe {
 	padding:20px;
+  -webkit-animation-duration: 0.5s !important;
+  animation-duration: 0.5s !important;
 }
 .swipe-title {
   font-family: 'chalet', sans-serif;
@@ -186,6 +188,7 @@
 .top-bar {
 	border-bottom:1px solid #f2f2f2;
 	padding: 5px 10px;
+  height: 56px;
 }
  #intro-left {
  	position: relative;
@@ -930,8 +933,10 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 }
 
 .messages-ul>li {
-  margin-top: -3px;
-  margin-bottom: 5px;
+  margin-top: -15px;
+}
+.messages-ul>li:hover {
+  cursor: pointer;
 }
 
 .messages-search-center>span {
@@ -950,8 +955,7 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 .messages-profile-name {
   font-size: 1.25em;
   color: #424242;
-  font-family: "HelveticaNeue-medium", "Helvetica Neue medium", "Helvetica Neue", 
-  Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "proxima-soft-medium", sans-serif;
 }
 
 .messages-line {
@@ -959,16 +963,14 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
   width: 77%;
   float: right;
   margin-right: -11px;
-  margin-top: -6px;
-  margin-top: -12px;
+  margin-top: -20px;
 }
 
 
 .messages-profile-date {
   font-size: 1.25em;
   color: #ababab;
-  font-family: "HelveticaNeue-Regular", "Helvetica Neue Regular", "Helvetica Neue", 
-  Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "proxima-soft-regular", sans-serif;
 }
 
 
@@ -989,6 +991,46 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
   display: block;
 }
 
+.white-overlay {
+  background-color: rgba(255, 255, 255, 0.75);
+  height: 396px;
+  position: absolute;
+  width: 348px;
+  margin-left: -10px;
+  top: 48px;
+  z-index: 3;
+  -webkit-animation-duration: 0.25s !important;
+  animation-duration: 0.25s !important;
+}
+
+.scroll-locked {
+  overflow: hidden;
+}
+.message-middle-img {
+  height: 35px;
+  width: 35px;
+  display:inline-block;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.message-middle-name {
+  display: inline-block;
+  font-family: 'proxima-soft-medium', sans-serif;
+  position: relative;
+  top: -11px;
+  padding-left: 6px;
+  font-size: 1.15em;
+}
+.message-middle {
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: center;
+  margin-top: -39px;
+}
 .white-fade {
   height: 75px;
   width: 100%;

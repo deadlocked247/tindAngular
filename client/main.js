@@ -178,14 +178,26 @@
 		$scope.showMatches = true;
 		$scope.showMatchDetailView = false;
 		$scope.currentMatch = [];
+		$scope.searchOverlay = false;
+		$scope.message = false;
+		$scope.fromMessages = false;
 		
+		$scope.profileImageClass = {};
 		
 		
 		$scope.token = $cookies.get('tindAngularToken');
 		
+		$scope.showMessages = function(match) {
+			$scope.message = true;
+			$scope.fromMessages = false;
+			$scope.messages = false;
+			$scope.currentMatchMessage = match;
+		}
+
 		$scope.getMessages = function(token, date) {
 			tinderServices.getMessages(token)
 			.then(function (payload) {
+				console.log(payload);
 				$scope.matches = payload.data;
 			})
 			.catch(function (payload) {
@@ -216,11 +228,13 @@
 			$scope.showMatches = false;
 			//set their first photo to active for the purposes of the carousel
 			$scope.currentMatch.photos[0].active = true;
+			$scope.fromMessages = false;
 		}
 		
 		$scope.hideInfo = function() {
 			$scope.showMatchDetailView = false;
 			$scope.showMatches = true;
+			$scope.fromMessages = false;
 		}
 		
 		/*
@@ -346,7 +360,7 @@
 					$scope.token = payload.data.token;
 					tinderServices.getNearby(payload.data.token)
 					.then(function (payload) {
-
+						console.log(payload);
 						$scope.nearby = payload.data.results;
 					});
 					tinderServices.profile(payload.data.token)
@@ -373,6 +387,7 @@
 							}
 					    }
 						$scope.user = payload.data;
+						$scope.profileImageClass = { 'background-image' : 'url(' + payload.data.photos[0].url + ')'};
 						tinderServices.getLocation(payload.data.pos.lon, payload.data.pos.lat)
 						.then(function (payload) {
 							var location = payload.data.results[2].formatted_address;
