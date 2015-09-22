@@ -51,7 +51,7 @@
 				<img ng-click="messages=true;swiping=false;" src="assets/img/message.svg" id="tinder-chat">
 			</div>
 
-			<div ng-show="showMap" class="locationMap">
+			<div ng-show="showMap" class="locationMap hide" ng-class="{'show':showMap}">
 				<div class="map-nav">
 					<img ng-click="showMap = false; showMatches = true" class="map-close" src="assets/img/map-close.svg">
 					<input ng-model="locationCity" class="map-search">
