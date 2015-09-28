@@ -10,7 +10,7 @@
 </head>
 <body ng-app="app" >
 
-	<div ng-controller="swipeController">
+	<div ng-cloak ng-controller="swipeController">
 
 		<!--MESSAGES START-->
 		<div class="tinder-swipe-container hide" ng-class="{'show':message}">
@@ -44,7 +44,7 @@
 				<div ng-show="searchOverlay && !(nameSearch && (nameSearch.length > 0))" class="white-overlay animated fadeIn">
 				</div>
 				<ul class="messages-ul">
-					<li ng-click="showMessages(match)" ng-show="match.person.name" ng-repeat="match in matches.matches.slice().reverse() | filter:nameSearch">
+					<li ng-show="match.person.name" ng-repeat="match in matches.matches.slice().reverse() | filter:nameSearch">
 						<div style="background-image:url('{{match.person.photos[0].processedFiles[2].url}}')" class="messages-profile-img">
 						</div>
 						<div class="messages-info">

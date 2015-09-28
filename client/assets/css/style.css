@@ -993,7 +993,7 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 
 .white-overlay {
   background-color: rgba(255, 255, 255, 0.75);
-  height: 396px;
+  height: 425px;
   position: absolute;
   width: 348px;
   margin-left: -10px;
