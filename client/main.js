@@ -192,6 +192,7 @@
 			$scope.fromMessages = false;
 			$scope.messages = false;
 			$scope.currentMatchMessage = match;
+			console.log(match);
 		}
 
 		$scope.getMessages = function(token, date) {
@@ -222,7 +223,6 @@
 		}
 		
 		$scope.showInfo = function(person) {
-			console.log(person);
 			$scope.currentMatch = person;
 			$scope.showMatchDetailView = true;
 			$scope.showMatches = false;

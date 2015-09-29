@@ -13,7 +13,7 @@
 	<div ng-cloak ng-controller="swipeController">
 
 		<!--MESSAGES START-->
-		<div class="tinder-swipe-container hide" ng-class="{'show':message}">
+		<div class="tinder-swipe-container hide" style="overflow:initial" ng-class="{'show':message}">
 			<div class="animated fadeIn">
 				<div class="top-bar ">
 					<img ng-click="message=false;messages = true;" style="height:35px" src="assets/img/back-arrow.svg" id="tinder-settings">
@@ -25,7 +25,31 @@
 						</div>
 					</div>
 				</div>
-			</div>
+				<ul class="match-messages-ul">
+					<div class="messages-wrapper" ng-repeat="message in currentMatchMessage.messages">
+						<div class="messages-date">
+						{{message.timestamp | date: 'MMM d'}}, {{message.timestamp | date: 'yyyy'}}, {{message.timestamp | date: 'h'}}:{{message.timestamp | date: 'mm a'}} 
+						</div>
+						<li ng-show="message.from == user._id" class="to-message" >
+							{{message.message}}
+						</li>
+						<div  ng-show="message.from != user._id" >
+							<div style="background-image:url('{{currentMatchMessage.person.photos[0].processedFiles[3].url}}');    position: relative;left: 0px;bottom: -12px;" class="message-middle-img">
+							</div>
+							<li class="from-message" >
+								{{message.message}}
+							</li>
+						</div>
+					</div>
+				</ul>
+				<div class="messages-bottom-bar">
+					<input ng-model="messageField" placeholder="Message" type="text">
+					</input>
+					<div ng-class="{'highlight':messageField.length > 0}" class="messages-bottom-send">
+						Send
+					</div>
+				</div>
+				</div>
 		</div>
 		<!--MESSAGES END -->
 		<div style="overflow: hidden;" class="tinder-swipe-container hide" ng-class="{'show':messages}">
@@ -44,7 +68,7 @@
 				<div ng-show="searchOverlay && !(nameSearch && (nameSearch.length > 0))" class="white-overlay animated fadeIn">
 				</div>
 				<ul class="messages-ul">
-					<li ng-show="match.person.name" ng-repeat="match in matches.matches.slice().reverse() | filter:nameSearch">
+					<li ng-click="showMessages(match)" ng-show="match.person.name" ng-repeat="match in matches.matches.slice().reverse() | filter:nameSearch">
 						<div style="background-image:url('{{match.person.photos[0].processedFiles[2].url}}')" class="messages-profile-img">
 						</div>
 						<div class="messages-info">
@@ -54,10 +78,10 @@
 							<div ng-hide="match.messages.length > 0" ng-init="date = match.created_date.toString().split('-'); date2 = date[2].split('T');" class="messages-profile-date">
 								Matched on {{date[1]}}/{{date2[0]}}
 							</div>
-							<div ng-show="(match.messages.length > 0)&&(match.messages[match.messages.length - 1].message.length > 28)" class="messages-profile-date">
-								{{match.messages[match.messages.length - 1].message.substring(0,28)}}...
+							<div ng-show="(match.messages.length > 0)&&(match.messages[match.messages.length - 1].message.length > 25)" class="messages-profile-date">
+								{{match.messages[match.messages.length - 1].message.substring(0,25)}}...
 							</div>
-							<div ng-show="(match.messages.length > 0)&&(match.messages[match.messages.length - 1].message.length <= 28)" class="messages-profile-date">
+							<div ng-show="(match.messages.length > 0)&&(match.messages[match.messages.length - 1].message.length <= 25)" class="messages-profile-date">
 								{{match.messages[match.messages.length - 1].message}}
 							</div>
 						</div>
@@ -164,7 +188,7 @@
 					    	{{person.common_like_count}}
 					    </div>
 					</li>
-				    <li class="card" ng-click="showInfo(person)" ng-class="{'swipe-left':person.leftSwipe, 'swipe-right':person.rightSwipe}"  ng-repeat="person in nearby" swing-card swing-on-throwoutleft="swipeLeft(person._id, $index)" swing-on-throwoutright="swipeRight(person._id, $index)" swing-on-throwoutright="swipeRight(person._id)"  swing-on-dragmove="dragmove(eventName, eventObject)" swing-on-throwin="resetCard(eventName, eventObject)" >
+				    <li class="card" ng-class="{'swipe-left':person.leftSwipe, 'swipe-right':person.rightSwipe}"  ng-repeat="person in nearby" swing-card swing-on-throwoutleft="swipeLeft(person._id, $index)" swing-on-throwoutright="swipeRight(person._id, $index)" swing-on-throwoutright="swipeRight(person._id)"  swing-on-dragmove="dragmove(eventName, eventObject)" swing-on-throwin="resetCard(eventName, eventObject)" >
 				    	<div class="no-text" ng-class="{'nope':($index+1) === nearby.length}">
 				    		NOPE
 				    	</div>
