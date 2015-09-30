@@ -1127,6 +1127,8 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 
 .match-messages-ul {
   padding: 0px 0px;
+  padding-top:5px;
+  padding-bottom:5px;
   list-style: none;
   overflow: scroll;
   height: 447px;
