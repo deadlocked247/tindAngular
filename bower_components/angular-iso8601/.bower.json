@@ -1,0 +1,30 @@
+{
+  "name": "angular-iso8601",
+  "version": "0.0.1",
+  "main": "dist/angular-iso8601.js",
+  "ignore": [
+    "**/.*",
+    "src",
+    "node_modules",
+    "bower_components",
+    "test",
+    "Gruntfile.coffee"
+  ],
+  "dependencies": {
+    "angular": "*"
+  },
+  "devDependencies": {
+    "angular-mocks": "*"
+  },
+  "homepage": "https://github.com/rubenv/angular-iso8601",
+  "_release": "0.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.1",
+    "commit": "dbed7a3d5080cd4a5be1a631a0fc6d43956bba5f"
+  },
+  "_source": "git://github.com/rubenv/angular-iso8601.git",
+  "_target": "~0.0.1",
+  "_originalSource": "angular-iso8601",
+  "_direct": true
+}

@@ -1149,3 +1149,31 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
   width:100%;
   display: inline-block;
 }
+
+
+.messages-new-container {
+  text-align: center;
+  font-family: "proxima-soft-normal", sans-serif;
+  color:#414141;
+padding: 66px 25px;
+    height: 418px;
+  font-size: 1em;
+}
+
+.messages-new-title {
+  font-size: 1.5em;
+}
+
+.messages-new-img {
+  height: 125px;
+  border-radius: 50%;
+  margin: 10px;
+}
+
+.messages-new-sub {
+  font-size:1.25em;
+}
+
+#loading-bar .bar {
+  background-color: #FF7359 !important;
+}

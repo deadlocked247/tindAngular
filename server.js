@@ -1,15 +1,16 @@
+
 var express 		= require('express'),
     app     		= express();
-
+var bodyParser = require('body-parser');
 var port    = 8000;
 var request = require('request');
+
 
 app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/client/index.html');
 });
 
 var FBClientId = '1690654501163960';
-
 var FBClientSecret = 'f4d4028794a5adad38b8695612e4bc29';
 
 app.use('/bower', express.static(__dirname + '/bower_components'));
@@ -33,6 +34,30 @@ app.get('/messages/:token', function(req, res) {
 	    if(error) {
 	        console.log(error);
 	    } else {
+	        res.send(body);
+	    }
+	});
+});
+
+app.use(bodyParser());
+
+
+app.post('/sendMessage/:id', function(req, res) {
+	console.log(req.cookies);
+	request({
+    url: 'https://api.gotinder.com/user/matches/' + req.params.id,
+    method: 'POST',
+    form: req.body.data,
+    headers: { 
+        'Content-Type': 'application/json',
+        'User-Agent': 'Tinder/4.6.1 (iPhone; iOS 9.0.1; Scale/2.00)',
+        'X-Auth-Token': req.body.auth.toString()
+    }
+	}, function(error, response, body){
+	    if(error) {
+	        console.log(error);
+	    } else {
+	    	console.log(body);
 	        res.send(body);
 	    }
 	});

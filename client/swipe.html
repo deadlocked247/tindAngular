@@ -6,11 +6,32 @@
 	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
 	<link rel="stylesheet" href="assets/css/animate.css">
 	<link rel="stylesheet" href="assets/css/icons.css">
+	<link rel="stylesheet" href="/bower/angular-loading-bar/build/loading-bar.css">
 	<link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
 </head>
 <body ng-app="app" >
 
 	<div ng-cloak ng-controller="swipeController">
+		<div ng-class="{'show-fb':noAcc}" class="overlay">
+			<div class="overlay-block">
+				<h2 style="text-align:center;margin-bottom:20px">
+				Sorry!
+				</h2>
+				<h4 style="text-align:center;margin-bottom:20px">
+					You need to make an account on the iOS Tinder app before being able to use this app.
+				</h4>
+				<a target="_blank" href="https://itunes.apple.com/us/app/tinder/id547702041?mt=8">
+				<div class="code">https://itunes.apple.com/us/app/tinder/id547702041?mt=8
+				</div>
+				</a>				
+				<div ng-click="goBackHome()" style="width:100px;margin-top:15px;" class="btn btn-default center-block facebook-btn">
+					Got it
+				</div>
+				<h6 style="text-align:center;margin-bottom:0px">
+					Maybe try again later?
+				</h6>
+			</div>
+		</div>
 
 		<!--MESSAGES START-->
 		<div class="tinder-swipe-container hide" style="overflow:initial" ng-class="{'show':message}">
@@ -25,9 +46,25 @@
 						</div>
 					</div>
 				</div>
-				<ul class="match-messages-ul">
+				<div class="messages-new-container animated bounceIn" ng-show="currentMatchMessage.messages.length == 0">
+					<div class="messages-new-title">
+					You matched with <strong>{{currentMatchMessage.person.name}}</strong>
+					</div>
+					<div class="message-new-date">
+						{{getDiffDays(currentMatchMessage.created_date)}} days ago
+					</div>
+					<img src="{{currentMatchMessage.person.photos[0].processedFiles[0].url}}" class="messages-new-img">
+					<div class="messages-new-sub">
+						{{currentMatchMessage.comp}}
+					</div>
+				</div>
+
+				<ul ng-hide="currentMatchMessage.messages.length == 0" class="match-messages-ul">
+					<div class="messages-date" style="text-transform:uppercase">
+					YOU MATCHED WITH {{currentMatchMessage.person.name}} on {{getDate(currentMatchMessage.created_date) | date: 'shortDate'}}
+					</div>
 					<div class="messages-wrapper" ng-repeat="message in currentMatchMessage.messages">
-						<div class="messages-date">
+						<div ng-show="message.showTime" class="messages-date">
 						{{message.timestamp | date: 'MMM d'}}, {{message.timestamp | date: 'yyyy'}}, {{message.timestamp | date: 'h'}}:{{message.timestamp | date: 'mm a'}} 
 						</div>
 						<li ng-show="message.from == user._id" class="to-message" >
@@ -45,7 +82,7 @@
 				<div class="messages-bottom-bar">
 					<input ng-model="messageField" placeholder="Message" type="text">
 					</input>
-					<div ng-class="{'highlight':messageField.length > 0}" class="messages-bottom-send">
+					<div ng-click="sendMessage(currentMatchMessage.id, messageField)" ng-class="{'highlight':messageField.length > 0}" class="messages-bottom-send">
 						Send
 					</div>
 				</div>
@@ -92,7 +129,7 @@
 			</div>
 		</div>
 		<div ng-show="messages" class="white-fade"></div>
-		<div ng-show="swiping" class="tinder-swipe-container">
+		<div ng-show="swiping && !noAcc" class="tinder-swipe-container">
 			<div ng-hide="showMap" class="top-bar">
 				<img src="assets/img/cog.svg" id="tinder-settings">
 				<img src="assets/img/tinder-logo.svg" class="swipe-title">
@@ -290,8 +327,11 @@
 <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
 <script src="/bower/angular-simple-logger/dist/index.js"></script>
 <script src="/bower/lodash/lodash.min.js"></script>
+<script src="/bower/angular-iso8601/dist/angular-iso8601.min.js"></script>
 <script src="/bower/angular-google-maps/dist/angular-google-maps.js"></script>
 <script src="/bower/jquery/dist/jquery.min.js"></script>
+
 <script src="/bower/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/bower/angular-loading-bar/build/loading-bar.min.js"></script>
 <script src="/main.js"></script>
 

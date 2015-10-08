@@ -1,9 +1,11 @@
 (function () {
 	'use strict'; 
-	angular.module('app',['ngRoute', 'facebook', 'gajus.swing', 'ngCookies', 'uiGmapgoogle-maps'])
-	.config(['$locationProvider', 'FacebookProvider', 'uiGmapGoogleMapApiProvider', function($locationProvider, FacebookProvider, uiGmapGoogleMapApiProvider) {
+	angular.module('app',['ngRoute', 'facebook', 'gajus.swing', 'ngCookies', 'uiGmapgoogle-maps', 'rt.iso8601', 'angular-loading-bar'])
+	.config(['$locationProvider', 'cfpLoadingBarProvider', 'FacebookProvider', 'uiGmapGoogleMapApiProvider', function($locationProvider, cfpLoadingBarProvider, FacebookProvider, uiGmapGoogleMapApiProvider) {
         $locationProvider.html5Mode(true);
         FacebookProvider.init('1690654501163960');
+        cfpLoadingBarProvider.includeSpinner = false;
+        cfpLoadingBarProvider.includeBar = true;
         uiGmapGoogleMapApiProvider.configure({
 	        key: 'AIzaSyAPOOb60SjxlgyGI_nmE8NBOZvns-6Q6XA',
 	        v: '3.20', 
@@ -39,13 +41,15 @@
 			swipeLeft : function(token, id) {
 				return $http({
 					method:"GET",
-					url:'/swipeLeft/'+ token + '/' + id
+					url:'/swipeLeft/'+ token + '/' + id,
+					ignoreLoadingBar: true
 				})
 			},
 			swipeRight : function(token, id) {
 				return $http({
 					method:"GET",
-					url:'/swipeRight/'+ token + '/' + id
+					url:'/swipeRight/'+ token + '/' + id,
+					ignoreLoadingBar: true
 				})
 			},
 			getLocation : function(lon, lat) {
@@ -58,6 +62,14 @@
 				return $http({
 					method:"GET",
 					url: '/messages/'+token
+				})
+			},
+			sendMessage : function(userId, msg) {
+				return $http({
+					method:"POST",
+					url: '/sendMessage/' + userId,
+					data: msg,
+					ignoreLoadingBar: true
 				})
 			}
 		}
@@ -161,7 +173,7 @@
 		
 		
 	})
-	.controller('swipeController', function($scope, $cookies, $timeout, tinderServices, Facebook) {
+	.controller('swipeController', function($scope, $cookies, $timeout, $filter, tinderServices, Facebook, iso8601) {
 		$('.profile-circle').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
 			$('.profile-circle').removeClass('animated bounceIn').addClass('circle-animate');
 		});
@@ -186,13 +198,77 @@
 		
 		
 		$scope.token = $cookies.get('tindAngularToken');
+
+		$scope.getDate = function(date) {
+			return iso8601.parse(date);
+		}
+
+		$scope.getDiffDays = function(date) {
+			if(date) { 
+				var curDate = new Date();
+				var oneDay = 24*60*60*1000;
+				var rightDate = new Date(date); 
+				return Math.round(Math.abs((rightDate.getTime() - curDate.getTime())/(oneDay)));
+			}
+			else {
+				return "";
+			}
+		}
+
+		$scope.getRandomComp = function() {
+			var arr = [
+				"You both like things. Talk about them.",
+				"There's nothing wrong with sending the first message.",
+				"Make them smile.",
+				"They're staring at the same thing... write the first message.",
+				"Send a message before your battery dies.",
+				"#Tinder"
+			];
+			var rand = Math.floor(Math.random()*arr.length);
+			return arr[rand];
+		}
+
+		$scope.sendMessage = function(id, msg) {
+			var obj = { "data" : { "message" : msg } , "auth": $scope.token }
+			$scope.messageField = undefined;
+			if(msg && msg.length > 0) {
+				tinderServices.sendMessage(id, obj)
+				.then(function (payload) {
+					payload.data.timestamp = new Date();
+					
+					payload.data.showTime = true;
+					
+					$scope.currentMatchMessage.messages.push(payload.data);
+					$(".match-messages-ul").animate({ scrollTop: $(".match-messages-ul")[0].scrollHeight}, 1000);
+				})
+				.catch(function (payload) {
+					console.log(payload.data);
+				});
+			}
+		}
 		
 		$scope.showMessages = function(match) {
 			$scope.message = true;
 			$scope.fromMessages = false;
 			$scope.messages = false;
 			$scope.currentMatchMessage = match;
-			console.log(match);
+			$scope.currentMatchMessage.comp = $scope.getRandomComp();
+			for(var x in $scope.currentMatchMessage.messages) {
+				if(x > 0 && $scope.currentMatchMessage.messages[x-1].timestamp) {
+					var newDate = $filter('date')($scope.currentMatchMessage.messages[x].timestamp, "mediumDate");
+					var oldDate = $filter('date')($scope.currentMatchMessage.messages[x-1].timestamp, "mediumDate");
+					console.log("NEW " + newDate + " OLD " + oldDate);
+					console.log(newDate == oldDate);
+					if(newDate == oldDate) {
+						$scope.currentMatchMessage.messages[x].showTime = false;
+					}
+					else {
+						$scope.currentMatchMessage.messages[x].showTime = true;
+					}
+				}
+			}
+
+			console.log($scope.currentMatchMessage);
 		}
 
 		$scope.getMessages = function(token, date) {
@@ -350,6 +426,10 @@
 			});
 		}
 
+		$scope.goBackHome = function() {
+			window.location.assign("/");
+		}
+
 		$scope.refresh = function() {
 			var token = $cookies.get('tindAngularToken');
 			var id = $cookies.get('tindAngularID');
@@ -365,6 +445,9 @@
 					});
 					tinderServices.profile(payload.data.token)
 					.then(function (payload) {
+						if(!payload.data.pos) {
+							$scope.noAcc = true;
+						}
 						$scope.map = 
 						{ 
 							center: { 
