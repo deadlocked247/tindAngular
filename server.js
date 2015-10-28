@@ -5,7 +5,6 @@ var bodyParser = require('body-parser');
 var port    = 8000;
 var request = require('request');
 
-
 app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/client/index.html');
 });
@@ -27,7 +26,7 @@ app.get('/messages/:token', function(req, res) {
     },
     headers: { 
         'Content-Type': 'application/json',
-        'User-agent': 'Tinder/4.6.0 (iPhone; iOS 8.1; Scale/2.00)',
+        'User-agent': 'Tinder/4.6.1 (iPhone; iOS 9.1; Scale/2.00)',
         'X-Auth-Token': req.params.token.toString()
     }
 	}, function(error, response, body){
@@ -72,7 +71,7 @@ app.get('/auth/:id/:auth', function(req, res) {
     body: obj,
     headers: { 
         'Content-Type': 'application/json',
-        'User-agent': 'Tinder/4.6.0 (iPhone; iOS 8.1; Scale/2.00)'
+        'User-agent': 'Tinder/4.6.1 (iPhone; iOS 9.1; Scale/2.00)'
     }
 	}, function(error, response, body){
 	    if(error) {
@@ -89,7 +88,7 @@ app.get('/nearby/:token', function(req, res) {
     method: 'GET', 
     headers: { 
         'Content-Type': 'application/json',
-        'User-agent': 'Tinder/4.6.0 (iPhone; iOS 8.1; Scale/2.00)',
+        'User-agent': 'Tinder/4.6.1 (iPhone; iOS 9.1; Scale/2.00)',
         'X-Auth-Token': req.params.token.toString()
     }
 	}, function(error, response, body){
@@ -108,7 +107,7 @@ app.get('/profile/:token', function(req, res) {
     method: 'GET', 
     headers: { 
         'Content-Type': 'application/json',
-        'User-agent': 'Tinder/4.6.0 (iPhone; iOS 8.1; Scale/2.00)',
+        'User-agent': 'Tinder/4.6.1 (iPhone; iOS 9.1; Scale/2.00)',
         'X-Auth-Token': req.params.token.toString()
     }
 	}, function(error, response, body){
@@ -127,7 +126,7 @@ app.get('/swipeRight/:token/:id', function(req, res) {
 		method:'GET',
 		headers: { 
         'Content-Type': 'application/json',
-        'User-agent': 'Tinder/4.6.0 (iPhone; iOS 8.1; Scale/2.00)',
+        'User-agent': 'Tinder/4.6.1 (iPhone; iOS 9.1; Scale/2.00)',
         'X-Auth-Token': req.params.token.toString()
     }
 	}, function(error, response, body){
@@ -146,7 +145,7 @@ app.get('/swipeLeft/:token/:id', function(req, res) {
 		method:'GET',
 		headers: { 
         'Content-Type': 'application/json',
-        'User-agent': 'Tinder/4.6.0 (iPhone; iOS 8.1; Scale/2.00)',
+        'User-agent': 'Tinder/4.6.1 (iPhone; iOS 9.1; Scale/2.00)',
         'X-Auth-Token': req.params.token.toString()
     }
 	}, function(error, response, body){
@@ -158,6 +157,7 @@ app.get('/swipeLeft/:token/:id', function(req, res) {
 	    }
 	});
 })
+
 
 
 

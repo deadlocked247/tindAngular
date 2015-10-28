@@ -80,7 +80,7 @@
 					</div>
 				</ul>
 				<div class="messages-bottom-bar">
-					<input ng-model="messageField" placeholder="Message" type="text">
+					<input ng-enter="sendMessage(currentMatchMessage.id, messageField)" ng-model="messageField" placeholder="Message" type="text">
 					</input>
 					<div ng-click="sendMessage(currentMatchMessage.id, messageField)" ng-class="{'highlight':messageField.length > 0}" class="messages-bottom-send">
 						Send
@@ -135,8 +135,8 @@
 				<img src="assets/img/tinder-logo.svg" class="swipe-title">
 				<img ng-click="messages=true;swiping=false;fromMessages = false;" src="assets/img/message.svg" id="tinder-chat">
 			</div>
-
-			<div ng-show="showMap" class="locationMap hide" ng-class="{'show':showMap}">
+			
+			<div ng-show="showMap" class="locationMap hide" nameg-class="{'show':showMap}">
 				<div class="map-nav">
 					<img ng-click="showMap = false; showMatches = true" class="map-close" src="assets/img/map-close.svg">
 					<input ng-model="locationCity" class="map-search">
@@ -193,9 +193,22 @@
 				
 			</div>
 			<div ng-show="showMatches" class="middle-swipe" ng-class="{'animated slideInLeft':fromMessages}">
-				
-				<div ng-show="user && !nearby" ng-style="profileImageClass" class="profile-circle animated bounceIn">
+				<div ng-show="user && !nearby && !timeout" ng-style="profileImageClass" class="profile-circle animated bounceIn">
 				</div>
+
+				<div style="width: auto;box-shadow: none;margin-top: 0px;padding-top: 0px;"class="overlay-block hideStuff" ng-class="{'showStuff':timeout}" >
+					<h2 style="text-align:center;margin-bottom:20px">
+					Tinder is having some trouble.
+					</h2>
+					<h4 style="text-align:center;margin-bottom:20px">
+						Looks like you want that booty call a little too much, try again in a while.
+					</h4>			
+					<div ng-click="goBackHome()" style="width:100px;margin-top:15px;" class="btn btn-default center-block facebook-btn">
+						Got it
+					</div>
+
+				</div>
+				
 				
 				
 				<ul ng-show="nearby" class="card-stack" swing-stack>

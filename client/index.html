@@ -41,8 +41,8 @@
 		<div class="tinder-container">
 			<span ng-click="goRight()" class="lnr lnr-chevron-right " id="intro-right"></span>
 			<span ng-click="goLeft()" class="lnr lnr-chevron-left" id="intro-left"></span>
-			<div class="fast animated fadeIn" ng-show="showContent[0]" ng-swipe-right="goRight()" ng-swipe-left="goLeft()"> 
-				<div class="intro-screen-title">
+			<div class="fast animated fadeIn hideStuff" ng-class="{'showStuff':showContent[0], 'hideStuff':!showContent[0]}" ng-swipe-right="goRight()" ng-swipe-left="goLeft()"> 
+				<div class="intro-screen-title" >
 					Anonymously "Like" or "Pass" on people Tinder Suggests.
 				</div>
 				<img src="assets/img/1.png" class="intro-screen-img">
@@ -50,7 +50,7 @@
 					<div class="selected">•</div> • • • • 
 				</div>
 			</div>
-			<div class="fast animated fadeIn" ng-show="showContent[1]" ng-swipe-right="goRight()" ng-swipe-left="goLeft()">
+			<div class="fast animated fadeIn hideStuff" ng-class="{'showStuff':showContent[1]}"  ng-swipe-right="goRight()" ng-swipe-left="goLeft()">
 				<div class="intro-screen-title">
 					If someone you've liked happens to like you back...
 				</div>
@@ -59,7 +59,7 @@
 					• <div class="selected">•</div> • • • 
 				</div>
 			</div>
-			<div class="fast animated fadeIn" ng-show="showContent[2]" ng-swipe-right="goRight()" ng-swipe-left="goLeft()">
+			<div class="fast animated fadeIn hideStuff" ng-class="{'showStuff':showContent[2]}"  ng-swipe-right="goRight()" ng-swipe-left="goLeft()">
 				<div class="intro-screen-title">
 					Chat with your matches inside the app.
 				</div>
@@ -68,7 +68,7 @@
 					• • <div class="selected">•</div> • • 
 				</div>
 			</div>
-			<div class="fast animated fadeIn" ng-show="showContent[3]" ng-swipe-right="goRight()" ng-swipe-left="goLeft()">
+			<div class="fast animated fadeIn hideStuff" ng-class="{'showStuff':showContent[3]}"  ng-swipe-right="goRight()" ng-swipe-left="goLeft()">
 				<div class="intro-screen-title">
 					Capture and share moments with all your mathches.
 				</div>
@@ -77,7 +77,7 @@
 					• • • <div class="selected">•</div> • 
 				</div>
 			</div>
-			<div class="fast animated fadeIn" ng-show="showContent[4]" ng-swipe-right="goRight()" ng-swipe-left="goLeft()">
+			<div class="fast animated fadeIn hideStuff" ng-class="{'showStuff':showContent[4]}"  ng-swipe-right="goRight()" ng-swipe-left="goLeft()">
 				<div class="intro-screen-title">
 					Like your matches' moments and see who liked yours.
 				</div>

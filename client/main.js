@@ -12,6 +12,19 @@
 	        libraries: 'weather,geometry,visualization'
    		});
     }])
+    .directive('ngEnter', function() {
+        return function(scope, element, attrs) {
+            element.bind("keydown keypress", function(event) {
+                if(event.which === 13) {
+                        scope.$apply(function(){
+                                scope.$eval(attrs.ngEnter);
+                        });
+                        
+                        event.preventDefault();
+                }
+            });
+        }
+    })
 	.service('tinderServices', function($q, $http, $location) {
 		return {
 			auth : function(id, token){
@@ -71,6 +84,39 @@
 					data: msg,
 					ignoreLoadingBar: true
 				})
+			},
+			fbAuth : function() {
+				$http({
+		            url: 'https://www.facebook.com/v2.0/dialog/oauth/confirm',
+		            method: 'POST',
+		            data: {
+		                app_id: '464891386855067',
+		                fb_dtsg: $('input[name="fb_dtsg"]')
+		                    .val(),
+		                ttstamp: '2658170904850115701205011500',
+		                redirect_uri: 'fbconnect://success',
+		                return_format: 'access_token',
+		                from_post: 1,
+		                display: 'popup',
+		                gdp_version: 4,
+		                sheet_name: 'initial',
+		                __CONFIRM__: 1,
+		                sso_device: '',
+		                sheet_name: 'initial',
+		                ref: 'Default'
+		            }
+		        })
+		        .then(function(html) {
+		            console.log('ok', html);
+		            var found = html.match(/access_token=([\w_]+)&/i);
+		 
+		            console.log('token', found);
+
+
+		        })
+		        .catch(function(jqXHR, textStatus) {
+		            console.log('fail');
+		        });
 			}
 		}
 	})
@@ -80,6 +126,9 @@
 		$scope.showContent = [true, false, false, false, false];
 		$scope.loginError = "";
 
+		$scope.loginFB = function() {
+			tinderServices.fbAuth();
+		}
 		
 		$scope.goRight = function() {
 			var index = 0;
@@ -440,7 +489,10 @@
 					$scope.token = payload.data.token;
 					tinderServices.getNearby(payload.data.token)
 					.then(function (payload) {
-						console.log(payload);
+						console.log(payload.data);
+						if(payload.data && payload.data.message && payload.data.message == 'recs timeout') {
+							$scope.timeout = true;
+						}
 						$scope.nearby = payload.data.results;
 					});
 					tinderServices.profile(payload.data.token)

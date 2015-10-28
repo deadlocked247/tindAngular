@@ -103,6 +103,13 @@
  	cursor: pointer;
  }
 
+.hideStuff {
+  display: none;
+}
+
+.showStuff {
+  display: block !important;
+}
 .fast {
 	-webkit-animation-delay: 0.25s !important; /* Chrome, Safari, Opera */
     animation-delay: 0.25s !important;
@@ -387,7 +394,6 @@ width:400px;
 font-family: 'proxima-soft-normal', sans-serif;
 background-color: white;
 height:auto;
-display: block;
 margin-left:auto;
 margin-right:auto;
 }
