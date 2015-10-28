@@ -9,9 +9,6 @@ app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/client/index.html');
 });
 
-var FBClientId = '1690654501163960';
-var FBClientSecret = 'f4d4028794a5adad38b8695612e4bc29';
-
 app.use('/bower', express.static(__dirname + '/bower_components'));
 app.use('/', express.static(__dirname + '/client'));
 
