@@ -33,6 +33,14 @@
 					url:'/auth/' + id + '/' + token
 				})
 			},
+			getUpdates : function(token, body) {
+				return $http({
+					method:"POST",
+					url: "/updates/" + token,
+					data: body,
+					ignoreLoadingBar: true
+				})
+			},
 			getNearby : function(token){
 				return $http({
 					method:"GET",
@@ -48,7 +56,8 @@
 			profile : function(token) {
 				return $http({
 					method:"GET",
-					url:'/profile/' + token
+					url:'/profile/' + token,
+					cache:true
 				})
 			},
 			swipeLeft : function(token, id) {
@@ -125,6 +134,7 @@
 		
 		$scope.showContent = [true, false, false, false, false];
 		$scope.loginError = "";
+
 
 		$scope.loginFB = function() {
 			tinderServices.fbAuth();
@@ -242,6 +252,32 @@
 		$scope.searchOverlay = false;
 		$scope.message = false;
 		$scope.fromMessages = false;
+
+		$scope.lastActiveDate = new Date();
+
+		$scope.lastActiveDateFunc = function() {
+			$timeout(function() {
+				$scope.lastActiveDate = new Date();
+				console.log($scope.lastActiveDate);
+				$scope.lastActiveDateFunc();
+				var body = 
+				{
+					"last_activity_date":$scope.lastActiveDate
+				};
+				console.log(body);
+				tinderServices.getUpdates($scope.token,body)
+				.then(function (payload){
+					$scope.matches = payload.data;
+				})
+				.catch(function (payload) {
+					if(payload.status = 403) {
+						$scope.updateAuth();
+					}
+				})
+			},60000);
+		};
+
+		$scope.lastActiveDateFunc();
 		
 		$scope.profileImageClass = {};
 		
@@ -418,6 +454,21 @@
         	$('.like').css({'opacity': 0});
         }
 
+        $scope.updateAuth = function() {
+        	var token = $cookies.get('tindAngularToken');
+			var id = $cookies.get('tindAngularID');
+			if(token && id) {
+				tinderServices.auth(id, token)
+				.then(function (payload) {
+					$scope.token = payload.data.token;
+				});
+			}
+			else {
+				window.location.assign("/");
+			}
+
+        }
+
 		$scope.swipeLeft = function(id, index) {
 			$timeout(function() {
 				$scope.lastUser = $scope.nearby[index];
@@ -485,6 +536,14 @@
 			if(token && id) {
 				tinderServices.auth(id, token)
 				.then(function (payload) {
+					var body = 
+					{
+						"last_activity_date": payload.data.user.active_time
+					}
+					tinderServices.getUpdates(payload.data.token, body)
+					.then(function (payload) {
+						console.log(payload.data)
+					});
 					$scope.getMessages(payload.data.token);
 					$scope.token = payload.data.token;
 					tinderServices.getNearby(payload.data.token)

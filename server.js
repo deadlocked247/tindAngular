@@ -5,12 +5,36 @@ var bodyParser = require('body-parser');
 var port    = 8000;
 var request = require('request');
 
+
+app.use(bodyParser());
+
 app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/client/index.html');
 });
 
 app.use('/bower', express.static(__dirname + '/bower_components'));
 app.use('/', express.static(__dirname + '/client'));
+
+app.post('/updates/:token', function(req, res) {
+	request({
+    url: 'https://api.gotinder.com/updates',
+    method: 'POST',
+    form:JSON.stringify(req.body),
+    headers: { 
+        'Content-Type': 'application/json',
+        'User-agent': 'Tinder/4.6.1 (iPhone; iOS 9.1; Scale/2.00)',
+        'X-Auth-Token': req.params.token.toString()
+    }
+	}, function(error, response, body){
+
+	    if(error) {
+	        console.log(error);
+	    } else {
+	        res.send(body);
+	    }
+	});
+});
+
 
 app.get('/messages/:token', function(req, res) {
 	

@@ -105,7 +105,7 @@
 				<div ng-show="searchOverlay && !(nameSearch && (nameSearch.length > 0))" class="white-overlay animated fadeIn">
 				</div>
 				<ul class="messages-ul">
-					<li ng-click="showMessages(match)" ng-show="match.person.name" ng-repeat="match in matches.matches.slice().reverse() | filter:nameSearch">
+					<li ng-click="showMessages(match)" ng-show="match.person.name" ng-repeat="match in matches.matches.slice().reverse() | filter:nameSearch | orderBy:'last_activity_date':true">
 						<div style="background-image:url('{{match.person.photos[0].processedFiles[2].url}}')" class="messages-profile-img">
 						</div>
 						<div class="messages-info">
@@ -115,10 +115,10 @@
 							<div ng-hide="match.messages.length > 0" ng-init="date = match.created_date.toString().split('-'); date2 = date[2].split('T');" class="messages-profile-date">
 								Matched on {{date[1]}}/{{date2[0]}}
 							</div>
-							<div ng-show="(match.messages.length > 0)&&(match.messages[match.messages.length - 1].message.length > 25)" class="messages-profile-date">
-								{{match.messages[match.messages.length - 1].message.substring(0,25)}}...
+							<div ng-show="(match.messages.length > 0)&&(match.messages[match.messages.length - 1].message.length > 20)" class="messages-profile-date">
+								{{match.messages[match.messages.length - 1].message.substring(0,20)}}...
 							</div>
-							<div ng-show="(match.messages.length > 0)&&(match.messages[match.messages.length - 1].message.length <= 25)" class="messages-profile-date">
+							<div ng-show="(match.messages.length > 0)&&(match.messages[match.messages.length - 1].message.length <= 20)" class="messages-profile-date">
 								{{match.messages[match.messages.length - 1].message}}
 							</div>
 						</div>
@@ -193,7 +193,7 @@
 				
 			</div>
 			<div ng-show="showMatches" class="middle-swipe" ng-class="{'animated slideInLeft':fromMessages}">
-				<div ng-show="user && !nearby && !timeout" ng-style="profileImageClass" class="profile-circle animated bounceIn">
+				<div ng-show="(user && !nearby && !timeout) || (user && nearby.length == 0)" ng-style="profileImageClass" class="profile-circle animated bounceIn">
 				</div>
 
 				<div style="width: auto;box-shadow: none;margin-top: 0px;padding-top: 0px;"class="overlay-block hideStuff" ng-class="{'showStuff':timeout}" >
@@ -212,7 +212,7 @@
 				
 				
 				<ul ng-show="nearby" class="card-stack" swing-stack>
-					<li class="card bottom-card1">
+					<li ng-hide="nearby.length==0" class="card bottom-card1">
 						<div style="" class="card-img">
 				    	</div> 
 				    	<div class="card-name">
@@ -225,7 +225,7 @@
 					    	{{person.common_like_count}}
 					    </div>
 					</li>
-					<li class="card bottom-card2">
+					<li ng-hide="nearby.length==0" class="card bottom-card2">
 						<div style="" class="card-img">
 				    	</div> 
 				    	<div class="card-name">
