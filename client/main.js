@@ -253,6 +253,26 @@
 		$scope.message = false;
 		$scope.fromMessages = false;
 
+		if(window.localStorage.getItem("showLiked") == 1) {
+       		$scope.showLiked = true;
+       	}	
+       	else {
+       		$scope.showLiked = false;
+       	}
+
+       	$scope.switchLiked = function() {
+       		 if($scope.showLiked) {
+                window.localStorage.setItem("showLiked", 1);
+                $scope.showLiked = true;
+
+            }
+            else {
+                window.localStorage.setItem("showLiked", 0);
+                $scope.showLiked = false;
+
+            }
+       	}
+
 		$scope.lastActiveDate = new Date();
 
 		$scope.lastActiveDateFunc = function() {

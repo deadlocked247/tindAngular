@@ -12,6 +12,20 @@
 <body ng-app="app" >
 
 	<div ng-cloak ng-controller="swipeController">
+		<div ng-show="!noAcc && settings" class="tinder-swipe-container">
+			<div style="text-align: center;" ng-hide="showMap" class="top-bar">
+				<span style="text-align: center;font-weight: 500;color:#6f6f6f;font-family: 'proxima-soft-normal', sans-serif;position: relative;top: 10px;font-size: 1.25em;right: -14px;" >App Settings</span>
+				<img ng-click="settings=false;swiping=true;" style="height:35px;transform: rotate(180deg);float: right;" src="assets/img/back-arrow.svg" id="tinder-settings">
+			</div>
+			<ul class="settings-list">
+				<li>
+					<p>
+					Show matches that liked you <input class="switch" ng-click="switchLiked()" ng-model="showLiked" type="checkbox">
+					</p>
+				</li>
+			</ul>
+		</div>
+
 		<div ng-class="{'show-fb':noAcc}" class="overlay">
 			<div class="overlay-block">
 				<h2 style="text-align:center;margin-bottom:20px">
@@ -131,9 +145,9 @@
 		<div ng-show="messages" class="white-fade"></div>
 		<div ng-show="swiping && !noAcc" class="tinder-swipe-container">
 			<div ng-hide="showMap" class="top-bar">
-				<img src="assets/img/cog.svg" id="tinder-settings">
+				<img src="assets/img/cog.svg" ng-click="settings=true;messages=false;swiping=false;fromMessages = false;" id="tinder-settings">
 				<img src="assets/img/tinder-logo.svg" class="swipe-title">
-				<img ng-click="messages=true;swiping=false;fromMessages = false;" src="assets/img/message.svg" id="tinder-chat">
+				<img ng-click="settings=false;messages=true;swiping=false;fromMessages = false;" src="assets/img/message.svg" id="tinder-chat">
 			</div>
 			
 			<div ng-show="showMap" class="locationMap hide" nameg-class="{'show':showMap}">
