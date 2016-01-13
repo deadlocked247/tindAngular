@@ -2,20 +2,41 @@
 <head>
 	<title>Tinder</title>
 	<base href="/">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
 	<link rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" href="assets/css/style.css">
 	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
 	<link rel="stylesheet" href="assets/css/animate.css">
 	<link rel="stylesheet" href="/bower/angular-loading-bar/build/loading-bar.css">
 	<link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
-
+	<!--FACEBOOK--> 
+	<link rel="image_src" href="assets/img/facebook.png"/>
+	<meta property="og:title" content="Tinder Online - Swipe for matches in your browser!" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="http://tindr.online/" />
+	<meta property="og:image" content="http://www.tindr.online/assets/img/facebook.png" />
+	<meta property="og:description" content="Can't use your phone but still want to swipe? Get started now, it's completely free!" />
+	<meta property="og:site_name" content="Tindr.online" />
+	<!-- END FB -->
 </head>
+
 <body ng-app="app" >
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1690654501163960";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
 	<a href="https://github.com/deadlocked247/tindAngular"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
 	<div ng-init="fbOverlay = false" ng-controller="mainController">
 		<div ng-class="{'show-fb':fbOverlay}" class="overlay">
+
 			<div class="overlay-block">
-				<h6 style="text-align:center;margin-bottom:20px">
+				<span ng-click="fbOverlay=false" style="float:right;" class="lnr lnr-cross"></span>
+				<h6 style="text-align:center;margin-bottom:20px;padding:0px 30px;margin-top:20px">
 				Right now our app can't access Tinder Facebook auth tokens because the Facebook app prevents the redirect url from being anything different.
 				</h6>
 				<h4 style="text-align:center;margin-bottom:20px">
@@ -90,8 +111,12 @@
 				tindAngular has no association with Tinder Inc or Facebook and is not responsible for what happens when you use this app.
 			</div>
 			<button ng-click="loginCheck()" type="button" class="btn btn-default center-block facebook-btn">Log in with Facebook</button>
+			<div style="display: block;margin-top: 10px;text-align:center;" class="fb-share-button" data-href="http://www.tindr.online/" data-layout="button_count"></div>
+
 		</div>
 	</div>
+		
+
 </body>
 
 
