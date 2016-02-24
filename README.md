@@ -4,7 +4,7 @@ An AngularJS clone of the famous social mobile application, Tinder. It uses Tind
 
 ## Demo
 
-[http://www.tindr.online](http://www.tindr.online)
+[http://www.tindr.online](http://murmuring-headland-3616.herokuapp.com/)
 
 ## Build and Install
 
