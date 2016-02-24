@@ -1,10 +1,12 @@
+**UPDATE: The official website is down because Tinder has taken some legal action against it**
+
 # tindAngular
 
 An AngularJS clone of the famous social mobile application, Tinder. It uses Tinder's API and Facebook's authentication, too, so it's the same account you use on your phone.
 
 ## Demo
 
-[http://www.tindr.online](http://murmuring-headland-3616.herokuapp.com/)
+[http://murmuring-headland-3616.herokuapp.com/](http://murmuring-headland-3616.herokuapp.com/)
 
 ## Build and Install
 
@@ -15,3 +17,4 @@ bower install
 cd client
 npm start
 ```
+
